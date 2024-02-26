@@ -1,3 +1,4 @@
+import { UserButton } from "@clerk/nextjs"
 
 const DashboardPage = () => {
   return (
@@ -6,7 +7,7 @@ const DashboardPage = () => {
             Dashboard
         </h1>
         <p className="mb-5">Welcome to the Dashboard</p>
-    </>
+ </>
   )
 }
 
