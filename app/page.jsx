@@ -1,14 +1,13 @@
 import Image from "next/image";
+import { UserButton } from "@clerk/nextjs";
+import NGE from "/app/buildings/NGE.jsx";
+
 
 export default function Home() {
   return (
-    <>
-      <h1 className="text-2xl font-bold mb-5">
-        Welcome
-      </h1>
-      <p className="mb-5">
-        Design Layout Here!!!
-      </p>
-    </>
+    <div>
+      <NGE/>
+    </div>
   );
 }
+  
