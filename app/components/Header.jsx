@@ -8,8 +8,8 @@ const Header = () => {
 
   return (
     <>
-        <nav className="bg-amber-500 py-4 px-6 flex items-center justify-between mb-5">
-            <div className="flex items-center">
+        <nav className="bg-amber-500 py-4 px-6  flex items-center justify-between mb-5 ">
+            <div className="flex items-center ">
                 <Link href="/">
                     <div className="text-lg uppercase font-bold text-white">
                         CIT ROOM CHECKER
@@ -27,14 +27,11 @@ const Header = () => {
                         </Link>
                     </>
                 )}
-                { userId && (
-                    <Link href="profile" className="text-gray-300 hover:text-white mr-4">
-                        Profile
-                    </Link>
-                )}
-                <div className="ml-auto">
+                { userId && ( 
+                    <div className="ml-auto">
                     <UserButton afterSignOutUrl="/"/>
-                </div>
+                    </div>
+                )}
             </div>
         </nav>
     </>
