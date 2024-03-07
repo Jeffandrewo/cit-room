@@ -14,11 +14,11 @@ const Modal = ({ isVisible, onClose, children}) => {
         justify-center items-center" id="wrapper"
         onClick={handleClose}>
             <div className='w-[600px] flex flex-col'>
-                <button className="text-white text-x1 place-self-end"
-                onClick={() => onClose()}>X</button>
                 <div className='bg-white p-2 rounded'>
                     {children}
                 </div>
+                <button className="text-white text-x1 font-sm font-bold"
+                onClick={() => onClose()}>CLOSE</button>
 
             </div>
 
