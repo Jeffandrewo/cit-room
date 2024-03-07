@@ -13,7 +13,7 @@ function Floor1({ roomsData }) {
         <h1>FLOOR1</h1>
       </div>
       {roomsData.map((room, index) => (
-        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+        <button key={index} className={styles.room}
           onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM {101 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
@@ -28,7 +28,7 @@ function Floor1({ roomsData }) {
       <Modal isVisible={showModal} onClose={() =>
       setShowModal(false)}>
         <div>
-        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+        <h2 className={styles.modal}>
             Room #: (Put number here) <br/>
             Teacher: (Name here) <br/>
             Section: (Section here) <br/>
@@ -47,7 +47,7 @@ function Floor2({ roomsData }) {
         <h1>FLOOR2</h1>
       </div>
       {roomsData.map((room, index) => (
-        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+        <button key={index} className={styles.room}
           onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM { + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
@@ -62,7 +62,7 @@ function Floor2({ roomsData }) {
       <Modal isVisible={showModal} onClose={() =>
       setShowModal(false)}>
         <div>
-        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+        <h2 className={styles.modal}>
             Room #: (Put number here) <br/>
             Teacher: (Name here) <br/>
             Section: (Section here) <br/>
@@ -81,7 +81,7 @@ function Floor3({ roomsData }) {
         <h1>FLOOR3</h1>
       </div>
       {roomsData.map((room, index) => (
-        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+        <button key={index} className={styles.room}
           onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM {301 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
@@ -96,7 +96,7 @@ function Floor3({ roomsData }) {
       <Modal isVisible={showModal} onClose={() =>
       setShowModal(false)}>
         <div>
-        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+        <h2 className={styles.modal}>
             Room #: (Put number here) <br/>
             Teacher: (Name here) <br/>
             Section: (Section here) <br/>
@@ -115,7 +115,7 @@ function Floor4({ roomsData }) {
         <h1>FLOOR4</h1>
       </div>
       {roomsData.map((room, index) => (
-        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+        <button key={index} className={styles.room}
           onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM {401 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
@@ -130,7 +130,7 @@ function Floor4({ roomsData }) {
       <Modal isVisible={showModal} onClose={() =>
       setShowModal(false)}>
         <div>
-        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+        <h2 className={styles.modal}>
             Room #: (Put number here) <br/>
             Teacher: (Name here) <br/>
             Section: (Section here) <br/>
@@ -149,7 +149,7 @@ function Floor5({ roomsData }) {
         <h1>FLOOR5</h1>
       </div>
       {roomsData.map((room, index) => (
-        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+        <button key={index} className={styles.room}
           onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM {501 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
@@ -164,7 +164,7 @@ function Floor5({ roomsData }) {
       <Modal isVisible={showModal} onClose={() =>
       setShowModal(false)}>
         <div>
-        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+        <h2 className={styles.modal}>
             Room #: (Put number here) <br/>
             Teacher: (Name here) <br/>
             Section: (Section here) <br/>
@@ -183,7 +183,7 @@ function Floor6({ roomsData }) {
         <h1>FLOOR6</h1>
       </div>
       {roomsData.map((room, index) => (
-        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+        <button key={index} className={styles.room}
           onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM {601 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
@@ -198,7 +198,7 @@ function Floor6({ roomsData }) {
       <Modal isVisible={showModal} onClose={() =>
       setShowModal(false)}>
         <div>
-        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+        <h2 className={styles.modal}>
             Room #: (Put number here) <br/>
             Teacher: (Name here) <br/>
             Section: (Section here) <br/>
@@ -232,7 +232,7 @@ function Floor7({ roomsData }) {
       <Modal isVisible={showModal} onClose={() =>
       setShowModal(false)}>
         <div>
-        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+        <h2 className={styles.modal}>
             Room #: (Put number here) <br/>
             Teacher: (Name here) <br/>
             Section: (Section here) <br/>
@@ -243,7 +243,6 @@ function Floor7({ roomsData }) {
     </div>
   );
 }
-//const d = styles.room;
 function Floor8({ roomsData }) {
   const [showModal, setShowModal] = useState(false)
   return (
@@ -267,7 +266,7 @@ function Floor8({ roomsData }) {
       <Modal isVisible={showModal} onClose={() =>
       setShowModal(false)}>
         <div>
-        <h2 className="text-base my-10 mx-10 p-10 text-black-400 font-semibold text-left">
+        <h2 className={styles.modal}>
             Room #: (Put number here) <br/>
             Teacher: (Name here) <br/>
             Section: (Section here) <br/>
@@ -368,6 +367,8 @@ export default function NGE() {
     return (
       <div>
         <App/>
+        <div className="m-10">
+        </div>
       </div>
      )
   }
