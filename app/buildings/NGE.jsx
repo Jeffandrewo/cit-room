@@ -1,5 +1,9 @@
+'use client'
+//import React from 'react';
+import React, { useState } from "react";
+import Modal from "../components/Modal";
 
-import React from 'react';
+
 /*function Floor1() {
   return (
     <div className="flex flex-wrap justify-center text-center">
@@ -496,155 +500,276 @@ function Floor8() {
     </div>
   )
 }*/
+
 function Floor1({ roomsData }) {
+  const [showModal, setShowModal] = useState(false)
   return (
     <div className="flex flex-wrap justify-center text-center">
       <div className="w-full mt-4">
-        <h1>FLOOR8</h1>
+        <h1>FLOOR1</h1>
       </div>
       {roomsData.map((room, index) => (
-        <div key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden">
+        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+          onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM {101 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
           <div className="items-center">
             <div className="w-48 h-2 bg-blue-500 mr-1"></div>
             <span className="text-blue-500">{room.otherData}</span>
+            
           </div>
-        </div>
+        </button>
+  
       ))}
+      <Modal isVisible={showModal} onClose={() =>
+      setShowModal(false)}>
+        <div>
+        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+            Room #: (Put number here) <br/>
+            Teacher: (Name here) <br/>
+            Section: (Section here) <br/>
+            Time: (Time Here) <br/>
+          </h2>
+        </div>
+      </Modal>
     </div>
   );
 }
 function Floor2({ roomsData }) {
+  const [showModal, setShowModal] = useState(false)
   return (
     <div className="flex flex-wrap justify-center text-center">
       <div className="w-full mt-4">
-        <h1>FLOOR8</h1>
+        <h1>FLOOR2</h1>
       </div>
       {roomsData.map((room, index) => (
-        <div key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden">
-          <h2 className="text-lg font-bold mb-1">ROOM {201 + index}</h2>
+        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+          onClick={() => setShowModal(true)}>
+          <h2 className="text-lg font-bold mb-1">ROOM { + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
           <div className="items-center">
             <div className="w-48 h-2 bg-blue-500 mr-1"></div>
             <span className="text-blue-500">{room.otherData}</span>
+            
           </div>
-        </div>
+        </button>
+  
       ))}
+      <Modal isVisible={showModal} onClose={() =>
+      setShowModal(false)}>
+        <div>
+        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+            Room #: (Put number here) <br/>
+            Teacher: (Name here) <br/>
+            Section: (Section here) <br/>
+            Time: (Time Here) <br/>
+          </h2>
+        </div>
+      </Modal>
     </div>
   );
 }
 function Floor3({ roomsData }) {
+  const [showModal, setShowModal] = useState(false)
   return (
     <div className="flex flex-wrap justify-center text-center">
       <div className="w-full mt-4">
-        <h1>FLOOR8</h1>
+        <h1>FLOOR3</h1>
       </div>
       {roomsData.map((room, index) => (
-        <div key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden">
+        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+          onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM {301 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
           <div className="items-center">
             <div className="w-48 h-2 bg-blue-500 mr-1"></div>
             <span className="text-blue-500">{room.otherData}</span>
+            
           </div>
-        </div>
+        </button>
+  
       ))}
+      <Modal isVisible={showModal} onClose={() =>
+      setShowModal(false)}>
+        <div>
+        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+            Room #: (Put number here) <br/>
+            Teacher: (Name here) <br/>
+            Section: (Section here) <br/>
+            Time: (Time Here) <br/>
+          </h2>
+        </div>
+      </Modal>
     </div>
   );
 }
 function Floor4({ roomsData }) {
+  const [showModal, setShowModal] = useState(false)
   return (
     <div className="flex flex-wrap justify-center text-center">
       <div className="w-full mt-4">
-        <h1>FLOOR8</h1>
+        <h1>FLOOR4</h1>
       </div>
       {roomsData.map((room, index) => (
-        <div key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden">
+        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+          onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM {401 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
           <div className="items-center">
             <div className="w-48 h-2 bg-blue-500 mr-1"></div>
             <span className="text-blue-500">{room.otherData}</span>
+            
           </div>
-        </div>
+        </button>
+  
       ))}
+      <Modal isVisible={showModal} onClose={() =>
+      setShowModal(false)}>
+        <div>
+        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+            Room #: (Put number here) <br/>
+            Teacher: (Name here) <br/>
+            Section: (Section here) <br/>
+            Time: (Time Here) <br/>
+          </h2>
+        </div>
+      </Modal>
     </div>
   );
 }
 function Floor5({ roomsData }) {
+  const [showModal, setShowModal] = useState(false)
   return (
     <div className="flex flex-wrap justify-center text-center">
       <div className="w-full mt-4">
-        <h1>FLOOR8</h1>
+        <h1>FLOOR5</h1>
       </div>
       {roomsData.map((room, index) => (
-        <div key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden">
+        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+          onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM {501 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
           <div className="items-center">
             <div className="w-48 h-2 bg-blue-500 mr-1"></div>
             <span className="text-blue-500">{room.otherData}</span>
+            
           </div>
-        </div>
+        </button>
+  
       ))}
+      <Modal isVisible={showModal} onClose={() =>
+      setShowModal(false)}>
+        <div>
+        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+            Room #: (Put number here) <br/>
+            Teacher: (Name here) <br/>
+            Section: (Section here) <br/>
+            Time: (Time Here) <br/>
+          </h2>
+        </div>
+      </Modal>
     </div>
   );
 }
 function Floor6({ roomsData }) {
+  const [showModal, setShowModal] = useState(false)
   return (
     <div className="flex flex-wrap justify-center text-center">
       <div className="w-full mt-4">
-        <h1>FLOOR8</h1>
+        <h1>FLOOR6</h1>
       </div>
       {roomsData.map((room, index) => (
-        <div key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden">
+        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+          onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM {601 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
           <div className="items-center">
             <div className="w-48 h-2 bg-blue-500 mr-1"></div>
             <span className="text-blue-500">{room.otherData}</span>
+            
           </div>
-        </div>
+        </button>
+  
       ))}
+      <Modal isVisible={showModal} onClose={() =>
+      setShowModal(false)}>
+        <div>
+        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+            Room #: (Put number here) <br/>
+            Teacher: (Name here) <br/>
+            Section: (Section here) <br/>
+            Time: (Time Here) <br/>
+          </h2>
+        </div>
+      </Modal>
     </div>
   );
 }
 function Floor7({ roomsData }) {
+  const [showModal, setShowModal] = useState(false)
   return (
     <div className="flex flex-wrap justify-center text-center">
       <div className="w-full mt-4">
-        <h1>FLOOR8</h1>
+        <h1>FLOOR7</h1>
       </div>
       {roomsData.map((room, index) => (
-        <div key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden">
+        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+          onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM {701 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
           <div className="items-center">
             <div className="w-48 h-2 bg-blue-500 mr-1"></div>
             <span className="text-blue-500">{room.otherData}</span>
+            
           </div>
-        </div>
+        </button>
+  
       ))}
+      <Modal isVisible={showModal} onClose={() =>
+      setShowModal(false)}>
+        <div>
+        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+            Room #: (Put number here) <br/>
+            Teacher: (Name here) <br/>
+            Section: (Section here) <br/>
+            Time: (Time Here) <br/>
+          </h2>
+        </div>
+      </Modal>
     </div>
   );
 }
 function Floor8({ roomsData }) {
+  const [showModal, setShowModal] = useState(false)
   return (
     <div className="flex flex-wrap justify-center text-center">
       <div className="w-full mt-4">
         <h1>FLOOR8</h1>
       </div>
       {roomsData.map((room, index) => (
-        <div key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden">
+        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+          onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM {801 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
           <div className="items-center">
             <div className="w-48 h-2 bg-blue-500 mr-1"></div>
             <span className="text-blue-500">{room.otherData}</span>
+            
           </div>
-        </div>
+        </button>
+  
       ))}
+      <Modal isVisible={showModal} onClose={() =>
+      setShowModal(false)}>
+        <div>
+        <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
+            Room #: (Put number here) <br/>
+            Teacher: (Name here) <br/>
+            Section: (Section here) <br/>
+            Time: (Time Here) <br/>
+          </h2>
+        </div>
+      </Modal>
     </div>
   );
 }
