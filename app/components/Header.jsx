@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { UserButton,auth } from "@clerk/nextjs"
 
+
 const Header = () => {
 
     const { userId } = auth();
@@ -14,6 +15,9 @@ const Header = () => {
                     <div className="text-lg uppercase font-bold text-white">
                         CIT ROOM CHECKER
                     </div>
+                </Link>
+                <Link href="/dashboard" className="text-gray-300 hover:text-white ml-4">
+                    Dashboard
                 </Link>
             </div>
             <div className="text-white flex items-center">

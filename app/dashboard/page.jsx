@@ -1,13 +1,56 @@
+'use client'
 import { UserButton } from "@clerk/nextjs"
+import { Alert, Container, Snackbar } from "@mui/material"
+import Information from "../components/Information"
+import InfoForm from "../components/InfoForm"
+import { useState } from "react"
+import { InfoContext } from "./InfoContext"
 
 const DashboardPage = () => {
+  const [open, setOpen] = useState(false);
+  const [alertType, setAlertType] = useState("success");
+  const [alertMessage, setAlertMessage] = useState("");
+  const [ infoAdd, setinfoAdd ] = useState 
+  ({ 
+    buildingName: '', 
+    classSection: '', 
+    floorNumber: '', 
+    roomNo: '', 
+    startTime: '',
+    endTime: '',
+    subjectNo: ''
+  });
+  const showAlert = (type, msg) =>{
+    setAlertType(type);
+    setAlertMessage(msg);
+    setOpen(true);
+  }
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
-    <>
-        <h1 className="text-2xl font-bold mb-5">
-            Dashboard
-        </h1>
-        <p className="mb-5">Welcome to the Dashboard</p>
- </>
+    <InfoContext.Provider value={{showAlert, infoAdd, setinfoAdd}}>
+      <Container>
+      <InfoForm />
+      <Snackbar 
+      anchorOrigin={{vertical: 'top', horizontal: 'center'}}
+      open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity={alertType}
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+        {alertMessage}
+        </Alert>
+      </Snackbar>
+      <Information />
+      </Container>
+    </InfoContext.Provider>
   )
 }
 
