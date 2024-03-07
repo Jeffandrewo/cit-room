@@ -222,7 +222,7 @@ function Floor7({ roomsData }) {
           <h2 className="text-lg font-bold mb-1">ROOM {701 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
           <div className="items-center">
-            <div className="w-48 h-2 bg-blue-500 mr-1"></div>
+            <div className="w-48 h-2 bg-blue-500 m-1"></div>
             <span className="text-blue-500">{room.otherData}</span>
             
           </div>
