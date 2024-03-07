@@ -13,11 +13,11 @@ const Modal = ({ isVisible, onClose, children}) => {
         bg-opacity-25 background-blur-sm flex 
         justify-center items-center" id="wrapper"
         onClick={handleClose}>
-            <div className='w-[600px] flex flex-col'>
-                <div className='bg-white p-2 rounded'>
+            <div className='w-100 bg-red-500 flex flex-col rounded-lg'>
+                <div className='bg-white p-2 rounded-t-lg'>
                     {children}
                 </div>
-                <button className="text-white text-x1 font-sm font-bold"
+                <button className="text-white text-x1 font-bold"
                 onClick={() => onClose()}>CLOSE</button>
 
             </div>

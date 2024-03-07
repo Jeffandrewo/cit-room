@@ -1,11 +1,11 @@
 .room {
-    background-color: #fff;
-    padding: 0.25rem;
-    margin: 0.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-top: 2px solid #00cc00;
-    width: 12rem; /* Adjust the width as needed */
-    height: 12rem; /* Adjust the height as needed */
-    overflow: hidden;
-  }
+  background-color: #fff;
+  padding: 1rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-top: 2px solid #00cc66;
+  width: 12rem;
+  height: 12rem;
+  overflow: hidden;
+}
