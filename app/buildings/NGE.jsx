@@ -243,6 +243,7 @@ function Floor7({ roomsData }) {
     </div>
   );
 }
+//const d = styles.room;
 function Floor8({ roomsData }) {
   const [showModal, setShowModal] = useState(false)
   return (
@@ -266,7 +267,7 @@ function Floor8({ roomsData }) {
       <Modal isVisible={showModal} onClose={() =>
       setShowModal(false)}>
         <div>
-        <h2 className="text-base my-10 mx-10 p-10 text-gray-400 font-semibold text-left">
+        <h2 className="text-base my-10 mx-10 p-10 text-black-400 font-semibold text-left">
             Room #: (Put number here) <br/>
             Teacher: (Name here) <br/>
             Section: (Section here) <br/>
