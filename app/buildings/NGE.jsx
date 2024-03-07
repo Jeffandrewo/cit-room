@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from "react";
 import Modal from "../components/Modal";
-import styles from "../buildings/NGE.css";
+import styles from "../buildings/NGE.module.css";
 
 
 
@@ -251,7 +251,7 @@ function Floor8({ roomsData }) {
         <h1>FLOOR8</h1>
       </div>
       {roomsData.map((room, index) => (
-        <button key={index} className="bg-white p-1 m-2 rounded-lg shadow-md border-t-2 border-green-500 w-48 h-48 overflow-hidden"
+        <button key={index} className={styles.room}
           onClick={() => setShowModal(true)}>
           <h2 className="text-lg font-bold mb-1">ROOM {801 + index}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacher}</p>
