@@ -3,7 +3,7 @@ import { db } from "@/firebase";
 import { Button, TextField } from "@mui/material";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useContext, useEffect, useRef, useState } from "react";
-import { InfoContext } from "../dashboard/InfoContext";
+import { InfoContext } from "../components/InfoContext";
 
 const InfoForm = () => {
 

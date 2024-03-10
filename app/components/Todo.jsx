@@ -11,7 +11,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { db } from "@/firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 import { IconButton, ListItem, ListItemText } from "@mui/material";
-import { InfoContext } from "../dashboard/InfoContext";
+import { InfoContext } from "./InfoContext";
 import moment from "moment";
 
 const Todo = ({
@@ -105,4 +105,3 @@ const Todo = ({
 };
 
 export default Todo;
-
