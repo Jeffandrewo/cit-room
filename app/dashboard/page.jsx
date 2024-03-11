@@ -4,7 +4,7 @@ import { Alert, Container, Snackbar } from "@mui/material"
 import Information from "../components/Information"
 import InfoForm from "../components/InfoForm"
 import { useState } from "react"
-import { InfoContext } from "./InfoContext"
+import { InfoContext } from "../components/InfoContext"
 
 const DashboardPage = () => {
   const [open, setOpen] = useState(false);

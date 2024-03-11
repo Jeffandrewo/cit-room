@@ -16,16 +16,16 @@ const Header = ({ userId }) => {
       </div>
       <div className="text-white flex items-center">
         <div className="ml-auto flex items-center">
-          <Link href="/dashboard" className="text-gray-300 hover:text-white mr-10">
+          <Link href="/" className="text-gray-300 hover:text-white mr-10">
             Home
           </Link>
-          <Link href="/AboutUs" className="text-gray-300 hover:text-white mr-10"> {/* Changed href */}
+          <Link href="/about-us" className="text-gray-300 hover:text-white mr-10"> {/* Changed href */}
             About Us
           </Link>
-          <Link href="/dashboard" className="text-gray-300 hover:text-white mr-10">
+          <Link href="/room-details" className="text-gray-300 hover:text-white mr-10">
             Room Details
           </Link>
-          <Link href="/dashboard" className="text-gray-300 hover:text-white mr-20">
+          <Link href="/search-room" className="text-gray-300 hover:text-white mr-20">
             Search Room
           </Link>
           {!userId && (
