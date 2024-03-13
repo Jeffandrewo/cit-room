@@ -1,7 +1,7 @@
 'use client'
 import { db } from "@/firebase";
 import { Button, TextField } from "@mui/material";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { useContext, useEffect, useRef, useState } from "react";
 import { InfoContext } from "../dashboard/InfoContext";
 
@@ -13,15 +13,32 @@ const InfoForm = () => {
   
   const {showAlert, infoAdd, setinfoAdd} = useContext(InfoContext);
   const onSubmit = async () => {
-    const collectionRef = collection(db, "info");
-    try {
-      docRef = await addDoc(collectionRef, { ...infoAdd, timestamp: serverTimestamp() });
-      console.log('Firestore Write Success:', docRef.id);
-    } catch (error) {
-      console.error('Firestore Write Error:', error);
-    
-    }
+    if (infoAdd?.hasOwnProperty('timestamp')){
+      // update
+      docRef = doc(db, "info", infoAdd.id);
+      const infoUpdated = { ...infoAdd, timestamp: serverTimestamp() }
+      updateDoc(docRef, infoUpdated)
+      setinfoAdd
+      ({ 
+        buildingName: '', 
+        classSection: '', 
+        floorNumber: '', 
+        roomNo: '', 
+        startTime: '',
+        endTime: '',
+        subjectNo: ''
+      })
+      showAlert('success', `Information with id ${docRef.id} is updated successfully`);
 
+    }else{
+      const collectionRef = collection(db, "info");
+      try {
+        docRef = await addDoc(collectionRef, { ...infoAdd, timestamp: serverTimestamp() });
+        console.log('Firestore Write Success:', docRef.id);
+      } catch (error) {
+        console.error('Firestore Write Error:', error);
+    
+      }
       setinfoAdd
       ({ 
         buildingName: '', 
@@ -33,6 +50,11 @@ const InfoForm = () => {
         subjectNo: ''
       })
       showAlert('success', `Information with id ${docRef.id} is added successfully`);
+    }
+
+    
+
+      
 
       
   }
@@ -110,7 +132,9 @@ const InfoForm = () => {
         value={infoAdd.subjectNo}
         onChange={e => setinfoAdd({...infoAdd,subjectNo:e.target.value})}
       />
-      <Button onClick={onSubmit} variant="contained" sx={{ mt: 3 }}>Add Information</Button>
+      <Button onClick={onSubmit} variant="contained" sx={{ mt: 3 }}>
+        {infoAdd.hasOwnProperty('timestamp')?'Update information' : 'Add information'}
+      </Button>
     </div>
   );
 };
