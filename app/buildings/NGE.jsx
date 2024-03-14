@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Modal from "../components/Modal";
 import styles from "../buildings/NGE.module.css";
-
+import Test from "./Test"
 
 
 function Floor1({ roomsData }) {
@@ -349,6 +349,7 @@ const roomsData1 = [
   { teacher: 'Jane Smith', otherData: 'More info' },
   // Add more room data objects as needed
 ];
+
 function App() {
   return(
   <div>
