@@ -73,7 +73,7 @@ const Todo = ({
         }
       >
         <ListItemText
-          primary={subjectNo}
+          primary={`ROOM ${roomNo}`}
           secondary={moment(timestamp).format("MMMM DD, YYYY ")}
         />
       </ListItem>
