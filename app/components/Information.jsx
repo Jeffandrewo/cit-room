@@ -33,6 +33,7 @@ const Information = () => {
                     roomNo={todo.roomNo}
                     startTime={todo.startTime}
                     subjectNo={todo.subjectNo}  // Assuming 'subject' is a property in your 'info' documents
+                    teacherName={todo.teacherName}
                 />
             ))}
         </div>

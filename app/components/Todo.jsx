@@ -24,6 +24,7 @@ const Todo = ({
   roomNo,
   startTime,
   subjectNo,
+  teacherName,
 }) => {
   const { showAlert, setinfoAdd } = useContext(InfoContext);
 
@@ -58,6 +59,7 @@ const Todo = ({
         roomNo,
         startTime,
         subjectNo,
+        teacherName,
       })}
         sx={{ mt: 3, boxShadow: 3 }}
         style={{ backgroundColor: "#FAFAFA" }}
@@ -73,7 +75,7 @@ const Todo = ({
         }
       >
         <ListItemText
-          primary={subjectNo}
+          primary={`ROOM ${roomNo}`}
           secondary={moment(timestamp).format("MMMM DD, YYYY ")}
         />
       </ListItem>
@@ -105,4 +107,5 @@ const Todo = ({
 };
 
 export default Todo;
+
 

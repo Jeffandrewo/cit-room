@@ -6,6 +6,7 @@ import InfoForm from "../components/InfoForm"
 import { useState } from "react"
 import { InfoContext } from "./InfoContext"
 
+
 const DashboardPage = () => {
   const [open, setOpen] = useState(false);
   const [alertType, setAlertType] = useState("success");
@@ -18,7 +19,8 @@ const DashboardPage = () => {
     roomNo: '', 
     startTime: '',
     endTime: '',
-    subjectNo: ''
+    subjectNo: '',
+    teacherName: ''
   });
   const showAlert = (type, msg) =>{
     setAlertType(type);

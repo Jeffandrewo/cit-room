@@ -26,7 +26,8 @@ const InfoForm = () => {
         roomNo: '', 
         startTime: '',
         endTime: '',
-        subjectNo: ''
+        subjectNo: '',
+        teacherName: ''
       })
       showAlert('success', `Information with id ${docRef.id} is updated successfully`);
 
@@ -47,7 +48,8 @@ const InfoForm = () => {
         roomNo: '', 
         startTime: '',
         endTime: '',
-        subjectNo: ''
+        subjectNo: '',
+        teacherName: ''
       })
       showAlert('success', `Information with id ${docRef.id} is added successfully`);
     }
@@ -69,7 +71,8 @@ const InfoForm = () => {
           roomNo: '',
           startTime: '',
           endTime: '',
-          subjectNo: ''
+          subjectNo: '',
+          teacherName: ''
         });
       } else {
         console.log('Inside input area');
@@ -132,6 +135,11 @@ const InfoForm = () => {
         value={infoAdd.subjectNo}
         onChange={e => setinfoAdd({...infoAdd,subjectNo:e.target.value})}
       />
+      <TextField fullWidth label="teacherName" margin="normal" 
+        value={infoAdd.teacherName}
+        onChange={e => setinfoAdd({...infoAdd,teacherName:e.target.value})}
+      />
+
       <Button onClick={onSubmit} variant="contained" sx={{ mt: 3 }}>
         {infoAdd.hasOwnProperty('timestamp')?'Update information' : 'Add information'}
       </Button>
