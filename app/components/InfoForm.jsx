@@ -1,7 +1,7 @@
 'use client'
 import { db } from "@/firebase";
 import { Button, TextField } from "@mui/material";
-import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp, updateDoc, query, where, getDocs } from "firebase/firestore";
 import { useContext, useEffect, useRef, useState } from "react";
 import { InfoContext } from "../dashboard/InfoContext";
 
@@ -13,6 +13,37 @@ const InfoForm = () => {
   
   const {showAlert, infoAdd, setinfoAdd} = useContext(InfoContext);
   const onSubmit = async () => {
+    const { buildingName, classSection, floorNumber, roomNo, startTime, endTime, subjectNo, teacherName } = infoAdd;
+
+  // Check if any of the fields are blank
+    if (!buildingName || !classSection || !floorNumber || !roomNo || !startTime || !endTime || !subjectNo || !teacherName) {
+      showAlert('error', 'Please fill in all fields.');
+      return;
+    }
+
+    if (floorNumber < 1 || floorNumber > 8) {
+      showAlert('error', 'Invalid floor number. Please enter a number between 1 and 8.');
+      return;
+    }
+
+    // Check if room number already exists or floor is full
+    const roomExists = await checkRoomExists(floorNumber, roomNo);
+    if (roomExists) {
+      showAlert('error', 'Room number already exists or floor is full.');
+      return;
+    }
+    const floorPrefix = floorNumber.toString();
+    if (!roomNo.startsWith(floorPrefix)) {
+      showAlert('error', `Room number must start with ${floorPrefix} on floor ${floorNumber}.`);
+      return;
+    }
+    if (floorNumber === '7' && !roomNo.startsWith('7')) {
+      showAlert('error', 'Room number must start with 7 on floor 7.');
+      return;
+    }
+
+
+
     if (infoAdd?.hasOwnProperty('timestamp')){
       // update
       docRef = doc(db, "info", infoAdd.id);
@@ -60,6 +91,16 @@ const InfoForm = () => {
 
       
   }
+   const checkRoomExists = async (floorNumber, roomNo) => {
+    // Check if room number already exists
+    const roomQuery = query(collection(db, 'info'), 
+      where('floorNumber', '==', floorNumber), 
+      where('roomNo', '==', roomNo)
+    );
+    const querySnapshot = await getDocs(roomQuery);
+    return !querySnapshot.empty || querySnapshot.size >= 6; // Check if floor is full
+  };
+
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
       if (!inputAreaRef.current.contains(e.target)) {
