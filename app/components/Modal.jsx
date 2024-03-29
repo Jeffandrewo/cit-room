@@ -1,12 +1,17 @@
-import React from "react";
+import React from "react"
 
-const Modal = ({ isVisible, onClose, children}) => {
+const Modal = ({ isVisible, onClose, children, onCloseDashboard }) => {
     if ( !isVisible ) return null;
 
     const handleClose = (e) => {
         if(e.target.id === 'wrapper') onClose();
-
     }
+    const handleModalClose = () => {
+        onClose();
+        if (onCloseDashboard) {
+          onCloseDashboard();
+        }
+    };
 
     return (
         <div className="fixed inset-0 bg-black 
@@ -18,10 +23,9 @@ const Modal = ({ isVisible, onClose, children}) => {
                     {children}
                 </div>
                 <button className="text-white text-x1 font-bold"
-                onClick={() => onClose()}>CLOSE</button>
+                onClick={handleModalClose}>CLOSE</button>
 
             </div>
-
         </div>
     )
 }

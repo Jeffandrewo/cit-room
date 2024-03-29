@@ -16,29 +16,31 @@ const InfoForm = () => {
     const { buildingName, classSection, floorNumber, roomNo, startTime, endTime, subjectNo, teacherName } = infoAdd;
 
   // Check if any of the fields are blank
-    if (!buildingName || !classSection || !floorNumber || !roomNo || !startTime || !endTime || !subjectNo || !teacherName) {
-      showAlert('error', 'Please fill in all fields.');
-      return;
-    }
+  if (!buildingName || !classSection || !floorNumber || !roomNo || !startTime || !endTime || !subjectNo || !teacherName) {
+    showAlert('error', 'Please fill in all fields.');
+    return;
+  }
 
-    if (floorNumber < 1 || floorNumber > 8) {
-      showAlert('error', 'Invalid floor number. Please enter a number between 1 and 8.');
-      return;
-    }
+  if (floorNumber < 1 || floorNumber > 8) {
+    showAlert('error', 'Invalid floor number. Please enter a number between 1 and 8.');
+    return;
+  }
 
-    // Check if room number already exists or floor is full
-    const roomExists = await checkRoomExists(floorNumber, roomNo);
-    if (roomExists) {
-      showAlert('error', 'Room number already exists or floor is full.');
-      return;
-    }
-    const floorPrefix = floorNumber.toString();
-    if (!roomNo.startsWith(floorPrefix)) {
-      showAlert('error', `Room number must start with ${floorPrefix} on floor ${floorNumber}.`);
-      return;
-    }
-    if (floorNumber === '7' && !roomNo.startsWith('7')) {
-      showAlert('error', 'Room number must start with 7 on floor 7.');
+  const floorPrefix = floorNumber.toString();
+  if (!roomNo.startsWith(floorPrefix)) {
+    showAlert('error', `Room number must start with ${floorPrefix} on floor ${floorNumber}.`);
+    return;
+  }
+  if ((floorPrefix === '1' && (roomNo < 101 || roomNo > 108)) ||
+        (floorPrefix === '2' && (roomNo < 201 || roomNo > 208)) ||
+        (floorPrefix === '3' && (roomNo < 301 || roomNo > 308)) ||
+        (floorPrefix === '4' && (roomNo < 401 || roomNo > 408)) ||
+        (floorPrefix === '5' && (roomNo < 501 || roomNo > 508)) ||
+        (floorPrefix === '6' && (roomNo < 601 || roomNo > 608)) ||
+        (floorPrefix === '7' && (roomNo < 701 || roomNo > 708)) ||
+        (floorPrefix === '8' && (roomNo < 801 || roomNo > 808))) 
+    {
+      showAlert('error', `Room number must be between ${floorNumber}01 and ${floorNumber}08`);
       return;
     }
 
@@ -71,40 +73,28 @@ const InfoForm = () => {
         console.error('Firestore Write Error:', error);
     
       }
-      setinfoAdd
-      ({ 
-        buildingName: '', 
-        classSection: '', 
-        floorNumber: '', 
-        roomNo: '', 
-        startTime: '',
-        endTime: '',
-        subjectNo: '',
-        teacherName: ''
-      })
       showAlert('success', `Information with id ${docRef.id} is added successfully`);
     }
-
-    
-
-      
-
-      
   }
-   const checkRoomExists = async (floorNumber, roomNo) => {
-    // Check if room number already exists
-    const roomQuery = query(collection(db, 'info'), 
-      where('floorNumber', '==', floorNumber), 
-      where('roomNo', '==', roomNo)
-    );
-    const querySnapshot = await getDocs(roomQuery);
-    return !querySnapshot.empty || querySnapshot.size >= 6; // Check if floor is full
-  };
+   const Clear = async () => {
+    setinfoAdd
+    ({ 
+      buildingName: '', 
+      classSection: '', 
+      floorNumber: '', 
+      roomNo: '', 
+      startTime: '',
+      endTime: '',
+      subjectNo: '',
+      teacherName: ''
+    })
+   }
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
       if (!inputAreaRef.current.contains(e.target)) {
-        console.log('Outside input area');
+        
+        ('Outside input area');
         setinfoAdd({
           buildingName: '',
           classSection: '',
@@ -180,10 +170,14 @@ const InfoForm = () => {
         value={infoAdd.teacherName}
         onChange={e => setinfoAdd({...infoAdd,teacherName:e.target.value})}
       />
-
-      <Button onClick={onSubmit} variant="contained" sx={{ mt: 3 }}>
+      <div sx={{ mt: 3 }}>
+      <Button onClick={onSubmit} variant="contained" sx={{  marginRight: 2 }}>
         {infoAdd.hasOwnProperty('timestamp')?'Update information' : 'Add information'}
       </Button>
+      <Button onClick={Clear} variant="contained">
+        Clear
+      </Button>
+      </div>
     </div>
   );
 };
