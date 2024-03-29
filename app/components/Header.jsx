@@ -1,12 +1,16 @@
 
-import React from 'react';
 import Link from 'next/link';
-import { FaSignInAlt, FaUserPlus } from 'react-icons/fa';
-import { SignInButton, SignUpButton, UserButton, auth } from '@clerk/nextjs';
 
-const Header = ({ userId }) => {
+import { MdAccountCircle } from 'react-icons/md';
+import {UserButton, auth } from '@clerk/nextjs';
+
+const Header = () => {
+
+  const { userId } = auth();
+  console.log(userId);
+
   return (
-    <nav className="[background-color:_#800000] relative py-4 px-6  flex items-center justify-between mb-5 ">
+    <nav className="[background-color:_#09cfcf] relative py-4 px-6  flex items-center justify-between mb-5 ">
       <div className="flex items-center">
         <Link href="/">
           <div className="text-lg uppercase font-bold text-white">
@@ -15,26 +19,23 @@ const Header = ({ userId }) => {
         </Link>
       </div>
       <div className="text-white flex items-center">
-        <div className="ml-auto flex items-center">
-          <Link href="/" className="text-gray-300 hover:text-white mr-10">
+        
+          <Link href="/" className="text-lg font bold hover:text-black mr-10">
             Home
           </Link>
-          <Link href="/about-us" className="text-gray-300 hover:text-white mr-10"> {/* Changed href */}
+          <Link href="/about-us" className="text-lg font bold hover:text-black mr-10">
             About Us
           </Link>
-          <Link href="/room-details" className="text-gray-300 hover:text-white mr-10">
+          <Link href="/room-details" className="text-lg font bold hover:text-black mr-10">
             Room Details
           </Link>
-          <Link href="/search-room" className="text-gray-300 hover:text-white mr-20">
+          <Link href="/search-room" className="text-lg font bold hover:text-black mr-20">
             Search Room
           </Link>
           {!userId && (
             <>
-              <Link href="/sign-in" className="text-gray-300 hover:text-white ml-5">
-                <FaSignInAlt size={20} /> 
-              </Link>
               <Link href="/sign-up" className="text-gray-300 hover:text-white ml-5">
-                <FaUserPlus size={20} /> 
+              <MdAccountCircle  size={30} /> 
               </Link>
             </>
           )}
@@ -44,7 +45,7 @@ const Header = ({ userId }) => {
             </div>
           )}
         </div>
-      </div>
+      
     </nav>
   );
 };
