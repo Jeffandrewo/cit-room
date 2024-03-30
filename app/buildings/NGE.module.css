@@ -1,0 +1,23 @@
+.room {
+    background-color: #fff;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 3rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-top: 2px solid #00cc66;
+    width: 12rem;
+    height: 12rem;
+    overflow: hidden;
+  }
+  
+  .modal {
+    font-size: 1rem; /* text-base in Tailwind corresponds to 1.25rem */
+    margin-top: 2.5rem; /* m-10 in Tailwind corresponds to 2.5rem */
+    padding: 2.5rem; /* p-10 in Tailwind corresponds to 2.5rem */
+    color: #000; /* text-black-400 in Tailwind corresponds to black color */
+    font-weight: 600; /* font-semibold in Tailwind corresponds to font-weight: 600 */
+    text-align: left; /* text-left in Tailwind corresponds to text-align: left */
+  }
