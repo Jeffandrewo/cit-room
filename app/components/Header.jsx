@@ -19,9 +19,8 @@ const Header = () => {
         </Link>
       </div>
       <div className="text-white flex items-center">
-        
-          <Link href="/" className="text-lg font bold hover:text-black mr-10">
-            Home
+          <Link href="/dashboard" className="text-lg font bold hover:text-black mr-10">
+            Dashboard
           </Link>
           <Link href="/about-us" className="text-lg font bold hover:text-black mr-10">
             About Us
