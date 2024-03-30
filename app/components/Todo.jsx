@@ -11,7 +11,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { db } from "@/firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 import { IconButton, ListItem, ListItemText } from "@mui/material";
-import { InfoContext } from "../components/InfoContext";
+import { InfoContext } from "../dashboard/InfoContext";
 import moment from "moment";
 
 const Todo = ({
@@ -24,6 +24,7 @@ const Todo = ({
   roomNo,
   startTime,
   subjectNo,
+  teacherName,
 }) => {
   const { showAlert, setinfoAdd } = useContext(InfoContext);
 
@@ -58,6 +59,7 @@ const Todo = ({
         roomNo,
         startTime,
         subjectNo,
+        teacherName,
       })}
         sx={{ mt: 3, boxShadow: 3 }}
         style={{ backgroundColor: "#FAFAFA" }}
@@ -73,7 +75,7 @@ const Todo = ({
         }
       >
         <ListItemText
-          primary={subjectNo}
+          primary={`ROOM ${roomNo}`}
           secondary={moment(timestamp).format("MMMM DD, YYYY ")}
         />
       </ListItem>

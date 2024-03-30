@@ -1,9 +1,9 @@
 'use client'
 import { db } from "@/firebase";
 import { Button, TextField } from "@mui/material";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp, updateDoc, query, where, getDocs } from "firebase/firestore";
 import { useContext, useEffect, useRef, useState } from "react";
-import { InfoContext } from "../components/InfoContext";
+import { InfoContext } from "../dashboard/InfoContext";
 
 const InfoForm = () => {
 
@@ -13,15 +13,44 @@ const InfoForm = () => {
   
   const {showAlert, infoAdd, setinfoAdd} = useContext(InfoContext);
   const onSubmit = async () => {
-    const collectionRef = collection(db, "info");
-    try {
-      docRef = await addDoc(collectionRef, { ...infoAdd, timestamp: serverTimestamp() });
-      console.log('Firestore Write Success:', docRef.id);
-    } catch (error) {
-      console.error('Firestore Write Error:', error);
-    
+    const { buildingName, classSection, floorNumber, roomNo, startTime, endTime, subjectNo, teacherName } = infoAdd;
+
+  // Check if any of the fields are blank
+  if (!buildingName || !classSection || !floorNumber || !roomNo || !startTime || !endTime || !subjectNo || !teacherName) {
+    showAlert('error', 'Please fill in all fields.');
+    return;
+  }
+
+  if (floorNumber < 1 || floorNumber > 8) {
+    showAlert('error', 'Invalid floor number. Please enter a number between 1 and 8.');
+    return;
+  }
+
+  const floorPrefix = floorNumber.toString();
+  if (!roomNo.startsWith(floorPrefix)) {
+    showAlert('error', `Room number must start with ${floorPrefix} on floor ${floorNumber}.`);
+    return;
+  }
+  if ((floorPrefix === '1' && (roomNo < 101 || roomNo > 108)) ||
+        (floorPrefix === '2' && (roomNo < 201 || roomNo > 208)) ||
+        (floorPrefix === '3' && (roomNo < 301 || roomNo > 308)) ||
+        (floorPrefix === '4' && (roomNo < 401 || roomNo > 408)) ||
+        (floorPrefix === '5' && (roomNo < 501 || roomNo > 508)) ||
+        (floorPrefix === '6' && (roomNo < 601 || roomNo > 608)) ||
+        (floorPrefix === '7' && (roomNo < 701 || roomNo > 708)) ||
+        (floorPrefix === '8' && (roomNo < 801 || roomNo > 808))) 
+    {
+      showAlert('error', `Room number must be between ${floorNumber}01 and ${floorNumber}08`);
+      return;
     }
 
+
+
+    if (infoAdd?.hasOwnProperty('timestamp')){
+      // update
+      docRef = doc(db, "info", infoAdd.id);
+      const infoUpdated = { ...infoAdd, timestamp: serverTimestamp() }
+      updateDoc(docRef, infoUpdated)
       setinfoAdd
       ({ 
         buildingName: '', 
@@ -30,16 +59,42 @@ const InfoForm = () => {
         roomNo: '', 
         startTime: '',
         endTime: '',
-        subjectNo: ''
+        subjectNo: '',
+        teacherName: ''
       })
-      showAlert('success', `Information with id ${docRef.id} is added successfully`);
+      showAlert('success', `Information with id ${docRef.id} is updated successfully`);
 
-      
+    }else{
+      const collectionRef = collection(db, "info");
+      try {
+        docRef = await addDoc(collectionRef, { ...infoAdd, timestamp: serverTimestamp() });
+        console.log('Firestore Write Success:', docRef.id);
+      } catch (error) {
+        console.error('Firestore Write Error:', error);
+    
+      }
+      showAlert('success', `Information with id ${docRef.id} is added successfully`);
+    }
   }
+   const Clear = async () => {
+    setinfoAdd
+    ({ 
+      buildingName: '', 
+      classSection: '', 
+      floorNumber: '', 
+      roomNo: '', 
+      startTime: '',
+      endTime: '',
+      subjectNo: '',
+      teacherName: ''
+    })
+   }
+
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
       if (!inputAreaRef.current.contains(e.target)) {
-        console.log('Outside input area');
+        
+        ('Outside input area');
         setinfoAdd({
           buildingName: '',
           classSection: '',
@@ -47,7 +102,8 @@ const InfoForm = () => {
           roomNo: '',
           startTime: '',
           endTime: '',
-          subjectNo: ''
+          subjectNo: '',
+          teacherName: ''
         });
       } else {
         console.log('Inside input area');
@@ -110,7 +166,18 @@ const InfoForm = () => {
         value={infoAdd.subjectNo}
         onChange={e => setinfoAdd({...infoAdd,subjectNo:e.target.value})}
       />
-      <Button onClick={onSubmit} variant="contained" sx={{ mt: 3 }}>Add Information</Button>
+      <TextField fullWidth label="teacherName" margin="normal" 
+        value={infoAdd.teacherName}
+        onChange={e => setinfoAdd({...infoAdd,teacherName:e.target.value})}
+      />
+      <div sx={{ mt: 3 }}>
+      <Button onClick={onSubmit} variant="contained" sx={{  marginRight: 2 }}>
+        {infoAdd.hasOwnProperty('timestamp')?'Update information' : 'Add information'}
+      </Button>
+      <Button onClick={Clear} variant="contained">
+        Clear
+      </Button>
+      </div>
     </div>
   );
 };

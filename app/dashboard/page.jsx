@@ -4,7 +4,8 @@ import { Alert, Container, Snackbar } from "@mui/material"
 import Information from "../components/Information"
 import InfoForm from "../components/InfoForm"
 import { useState } from "react"
-import { InfoContext } from "../components/InfoContext"
+import { InfoContext } from "./InfoContext"
+
 
 const DashboardPage = () => {
   const [open, setOpen] = useState(false);
@@ -18,7 +19,8 @@ const DashboardPage = () => {
     roomNo: '', 
     startTime: '',
     endTime: '',
-    subjectNo: ''
+    subjectNo: '',
+    teacherName: ''
   });
   const showAlert = (type, msg) =>{
     setAlertType(type);
