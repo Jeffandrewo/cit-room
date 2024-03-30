@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link'; 
 
+//<NGE/>
 export default function Home() {
   return (
     <div className="bg-white">
