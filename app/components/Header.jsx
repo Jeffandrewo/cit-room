@@ -5,6 +5,7 @@ import { UserButton, auth } from "@clerk/nextjs";
 
 const Header = () => {
   const { userId } = auth();
+  console.log(userId);
 
   return (
     <nav className="[background-color:_#09cfcf] relative py-4 px-6  flex items-center justify-between mb-5 ">
@@ -16,6 +17,12 @@ const Header = () => {
         </Link>
       </div>
       <div className="text-white flex items-center">
+        <Link
+          href="/calendar"
+          className="text-lg font bold hover:text-black mr-10"
+        >
+          Calendar
+        </Link>
         <Link
           href="/about-us"
           className="text-lg font bold hover:text-black mr-10"
