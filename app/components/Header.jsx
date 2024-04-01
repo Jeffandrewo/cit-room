@@ -1,11 +1,9 @@
 import Link from "next/link";
-
 import { MdAccountCircle } from "react-icons/md";
 import { UserButton, auth } from "@clerk/nextjs";
 
 const Header = () => {
   const { userId } = auth();
-  console.log(userId);
 
   return (
     <nav className="[background-color:_#09cfcf] relative py-4 px-6  flex items-center justify-between mb-5 ">
@@ -29,13 +27,14 @@ const Header = () => {
         >
           About Us
         </Link>
-        <Link
-          href="/dashboard"
-          className="text-lg font bold hover:text-black mr-10"
-        >
-          Dashboard
-        </Link>
-
+        {userId && (
+          <Link
+            href="/dashboard"
+            className="text-lg font bold hover:text-black mr-10"
+          >
+            Dashboard
+          </Link>
+        )}
         <Link
           href="/room-details"
           className="text-lg font bold hover:text-black mr-10"
@@ -49,14 +48,12 @@ const Header = () => {
           Search Room
         </Link>
         {!userId && (
-          <>
-            <Link
-              href="/sign-up"
-              className="text-gray-300 hover:text-white ml-5"
-            >
-              <MdAccountCircle size={30} />
-            </Link>
-          </>
+          <Link
+            href="/sign-up"
+            className="text-gray-300 hover:text-white ml-5"
+          >
+            <MdAccountCircle size={30} />
+          </Link>
         )}
         {userId && (
           <div className="ml-5">
