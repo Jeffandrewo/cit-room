@@ -17,33 +17,39 @@ const Header = () => {
       <div className="text-white flex items-center">
         <Link
           href="/calendar"
-          className="text-lg font bold hover:text-black mr-10"
+          className="text-lg font-bold hover:text-black mr-10"
         >
           Calendar
         </Link>
         <Link
           href="/about-us"
-          className="text-lg font bold hover:text-black mr-10"
+          className="text-lg font-bold hover:text-black mr-10"
         >
           About Us
+        </Link>
+        <Link
+          href="/contact-us"
+          className="text-lg font-bold hover:text-black mr-10"
+        >
+          Contact Us
         </Link>
         {userId && (
           <Link
             href="/dashboard"
-            className="text-lg font bold hover:text-black mr-10"
+            className="text-lg font-bold hover:text-black mr-10"
           >
             Dashboard
           </Link>
         )}
         <Link
           href="/room-details"
-          className="text-lg font bold hover:text-black mr-10"
+          className="text-lg font-bold hover:text-black mr-10"
         >
           Room Details
         </Link>
         <Link
           href="/search-room"
-          className="text-lg font bold hover:text-black mr-20"
+          className="text-lg font-bold hover:text-black mr-20"
         >
           Search Room
         </Link>
