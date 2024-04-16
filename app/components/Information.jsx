@@ -34,6 +34,8 @@ const Information = () => {
                     startTime={todo.startTime}
                     subjectNo={todo.subjectNo}  // Assuming 'subject' is a property in your 'info' documents
                     teacherName={todo.teacherName}
+                    day={todo.day}
+                    status={todo.status}
                 />
             ))}
         </div>

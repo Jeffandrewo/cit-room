@@ -1,6 +1,6 @@
 'use client'
 import { db } from "@/firebase";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, FormControl, Select, InputLabel, MenuItem } from "@mui/material";
 import { addDoc, collection, doc, serverTimestamp, updateDoc, query, where, getDocs } from "firebase/firestore";
 import { useContext, useEffect, useRef, useState } from "react";
 import { InfoContext } from "../dashboard/InfoContext";
@@ -21,11 +21,13 @@ const InfoForm = ({ selectedRoom }) => {
     endTime: selectedRoom?.endTime || '',
     subjectNo: selectedRoom?.subjectNo || '',
     teacherName: selectedRoom?.teacherName || '',
+    day:selectedRoom?.day || '',
+    status:selectedRoom?.status || '',
     timestamp: selectedRoom?.timestamp || null // Ensure you have the timestamp if you're updating
   });
 
   const onSubmit = async () => {
-    const { id, buildingName, classSection, floorNumber, roomNo, startTime, endTime, subjectNo, teacherName } = infoAdd;
+    const { id, buildingName, classSection, floorNumber, roomNo, startTime, endTime, subjectNo, teacherName, day, status } = infoAdd;
 
     /*if (id) {
       // If ID exists, it means we're updating an existing document
@@ -37,7 +39,7 @@ const InfoForm = ({ selectedRoom }) => {
       // If ID doesn't exist, you might want to handle this case
       showAlert('error', 'Cannot update information without an ID.');
     }*/
-    if (!buildingName || !classSection || !floorNumber || !roomNo || !startTime || !endTime || !subjectNo || !teacherName) {
+    if (!buildingName || !classSection || !floorNumber || !roomNo || !startTime || !endTime || !subjectNo || !teacherName || !day || !status) {
       showAlert('error', 'Please fill in all fields.');
       return;
     }
@@ -110,58 +112,116 @@ const InfoForm = ({ selectedRoom }) => {
 
   return (
     <div ref={inputAreaRef}>
-      
-    <TextField fullWidth label="buildingName" margin="normal"
-      value={infoAdd.buildingName}
-      onChange={e => setinfoAdd({...infoAdd,buildingName:e.target.value})}
-    />
-    <TextField fullWidth label="classSection" margin="normal" 
-      value={infoAdd.classSection}
-      onChange={e => setinfoAdd({...infoAdd,classSection:e.target.value})}
-    />
-    <TextField fullWidth label="floorNumber" margin="normal" 
-      value={infoAdd.floorNumber}
-      onChange={e => setinfoAdd({...infoAdd,floorNumber:e.target.value})}
-    />
-    <TextField fullWidth label="roomNo" margin="normal" 
-      value={infoAdd.roomNo}
-      onChange={e => setinfoAdd({...infoAdd,roomNo:e.target.value})}
-    />
-
-    {/* Use type="time" for startTime */}
-    <TextField
-      fullWidth
-      label="startTime"
-      margin="normal"
-      type="time"
-      InputLabelProps={{
-        shrink: true,
-      }}
-      value={infoAdd.startTime}
-      onChange={e => setinfoAdd({...infoAdd,startTime:e.target.value})}
-    />
-
-    {/* Use type="time" for endTime */}
-    <TextField
-      fullWidth
-      label="endTime"
-      margin="normal"
-      type="time"
-      InputLabelProps={{
-        shrink: true,
-      }}
-      value={infoAdd.endTime}
-      onChange={e => setinfoAdd({...infoAdd,endTime:e.target.value})}
-    />
-
-    <TextField fullWidth label="subjectNo" margin="normal" 
-      value={infoAdd.subjectNo}
-      onChange={e => setinfoAdd({...infoAdd,subjectNo:e.target.value})}
-    />
-    <TextField fullWidth label="teacherName" margin="normal" 
-      value={infoAdd.teacherName}
-      onChange={e => setinfoAdd({...infoAdd,teacherName:e.target.value})}
-    />
+      <FormControl fullWidth margin="normal">
+        <InputLabel id="buildingName-label">Building Name</InputLabel>
+        <Select
+          labelId="buildingName-label"
+          id="buildingName"
+          value={infoAdd.buildingName}
+          onChange={(e) => setinfoAdd({ ...infoAdd, buildingName: e.target.value })}
+          label="Building Name"
+        >
+          <MenuItem value="NGE">NGE</MenuItem>
+          <MenuItem value="GLE">GLE</MenuItem>
+        </Select>
+      </FormControl>
+      <TextField
+        fullWidth
+        label="classSection"
+        margin="normal"
+        value={infoAdd.classSection}
+        onChange={(e) => setinfoAdd({ ...infoAdd, classSection: e.target.value })}
+      />
+      <TextField
+        fullWidth
+        label="roomNo"
+        margin="normal"
+        value={infoAdd.roomNo}
+        onChange={(e) => setinfoAdd({ ...infoAdd, roomNo: e.target.value })}
+      />
+      <FormControl fullWidth margin="normal">
+        <InputLabel id="floorNumber-label">Floor Number</InputLabel>
+        <Select
+          labelId="floorNumber-label"
+          id="floorNumber"
+          value={infoAdd.floorNumber}
+          onChange={(e) => setinfoAdd({ ...infoAdd, floorNumber: e.target.value })}
+          label="Floor Number"
+        >
+          {[...Array(8).keys()].map((num) => (
+            <MenuItem key={num + 1} value={(num + 1).toString()}>
+              {(num + 1).toString()}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl fullWidth margin="normal">
+        <InputLabel id="day-label">Day</InputLabel>
+        <Select
+          labelId="day-label"
+          id="day"
+          value={infoAdd.day}
+          onChange={(e) => setinfoAdd({ ...infoAdd, day: e.target.value })}
+          label="Day"
+        >
+          <MenuItem value="Monday">Monday</MenuItem>
+          <MenuItem value="Tuesday">Tuesday</MenuItem>
+          <MenuItem value="Wednesday">Wednesday</MenuItem>
+          <MenuItem value="Thursday">Thursday</MenuItem>
+          <MenuItem value="Friday">Friday</MenuItem>
+          <MenuItem value="Saturday">Saturday</MenuItem>
+          <MenuItem value="Sunday">Sunday</MenuItem>
+        </Select>
+      </FormControl>
+      <TextField
+        fullWidth
+        label="startTime"
+        margin="normal"
+        type="time"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        value={infoAdd.startTime}
+        onChange={(e) => setinfoAdd({ ...infoAdd, startTime: e.target.value })}
+      />
+      <TextField
+        fullWidth
+        label="endTime"
+        margin="normal"
+        type="time"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        value={infoAdd.endTime}
+        onChange={(e) => setinfoAdd({ ...infoAdd, endTime: e.target.value })}
+      />
+      <TextField
+        fullWidth
+        label="subjectNo"
+        margin="normal"
+        value={infoAdd.subjectNo}
+        onChange={(e) => setinfoAdd({ ...infoAdd, subjectNo: e.target.value })}
+      />
+      <TextField
+        fullWidth
+        label="teacherName"
+        margin="normal"
+        value={infoAdd.teacherName}
+        onChange={(e) => setinfoAdd({ ...infoAdd, teacherName: e.target.value })}
+      />
+      <FormControl fullWidth margin="normal">
+        <InputLabel id="status-label">Status</InputLabel>
+        <Select
+          labelId="status-label"
+          id="status"
+          value={infoAdd.status}
+          onChange={(e) => setinfoAdd({ ...infoAdd, status: e.target.value })}
+          label="Status"
+        >
+          <MenuItem value="In-use">In-use</MenuItem>
+          <MenuItem value="Available">Available</MenuItem>
+        </Select>
+      </FormControl>
 
       <Button onClick={onSubmit} variant="contained" sx={{ mt: 3 }}>
         Update Information

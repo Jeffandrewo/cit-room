@@ -25,6 +25,8 @@ const Todo = ({
   startTime,
   subjectNo,
   teacherName,
+  day,
+  status,
 }) => {
   const { showAlert, setinfoAdd } = useContext(InfoContext);
 
@@ -60,6 +62,8 @@ const Todo = ({
         startTime,
         subjectNo,
         teacherName,
+        day,
+        status,
       })}
         sx={{ mt: 3, boxShadow: 3 }}
         style={{ backgroundColor: "#FAFAFA" }}
