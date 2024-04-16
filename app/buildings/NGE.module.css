@@ -15,8 +15,8 @@
   
   .modal {
     font-size: 1rem; /* text-base in Tailwind corresponds to 1.25rem */
-    margin-top: 2.5rem; /* m-10 in Tailwind corresponds to 2.5rem */
-    padding: 2.5rem; /* p-10 in Tailwind corresponds to 2.5rem */
+    margin: 0 2.5rem 2.5rem; /* m-10 in Tailwind corresponds to 2.5rem */
+    padding: 0.5rem; /* p-10 in Tailwind corresponds to 2.5rem */
     color: #000; /* text-black-400 in Tailwind corresponds to black color */
     font-weight: 600; /* font-semibold in Tailwind corresponds to font-weight: 600 */
     text-align: left; /* text-left in Tailwind corresponds to text-align: left */

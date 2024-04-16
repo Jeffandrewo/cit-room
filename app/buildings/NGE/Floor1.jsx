@@ -48,10 +48,12 @@ function Floor1({ roomsData }) {
         <button
           key={index}
           className={styles.room}
+          style={{ order: parseInt(room.roomNo) }}
           onClick={() => openModal(room)}
         >
           <h2 className="text-lg font-bold mb-1">ROOM {room.roomNo}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacherName}</p>
+          <p className="text-gray-600 mb-1">Subject: {room.subjectNo}</p>
           <div className="items-center">
             <div className="w-50 h-2 bg-green-500 "></div>
             <span className="text-blue-500">{room.status}</span>
@@ -67,8 +69,12 @@ function Floor1({ roomsData }) {
           ) : (
             <div>
               <h2 className={styles.modal}>
+                Building Name: {selectedRoom?.buildingName} <br />
+                Floor: {selectedRoom?.floorNumber} <br />
                 Room #: {selectedRoom?.roomNo} <br />
                 Teacher: {selectedRoom?.teacherName} <br />
+                Section: {selectedRoom?.classSection} <br />
+                Subject: {selectedRoom?.subjectNo} <br />
                 Section: {selectedRoom?.classSection} <br />
                 Time: {selectedRoom?.startTime} - {selectedRoom?.endTime} <br />
               </h2>
@@ -90,11 +96,62 @@ const F1 = () => {
         const collectionRef = collection(db, "info");
         const q = query(collectionRef, orderBy("timestamp", "desc"));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
-          const filteredInfo = querySnapshot.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-            timestamp: doc.data().timestamp?.toDate().getTime(),
-          })).filter(room => room.roomNo >= 101 && room.roomNo <= 106); // Filter rooms 801 to 806
+          const currentTime = new Date(); // Current date and time
+    
+          // Initialize an array to store the rooms that fulfill the condition
+          const roomsFulfillingCondition = [];
+    
+          // Map rooms that fulfill the condition (start time and end time within current time)
+          querySnapshot.docs.forEach(doc => {
+            const room = {
+              ...doc.data(),
+              id: doc.id,
+              timestamp: doc.data().timestamp?.toDate().getTime(),
+            };
+            
+            const currentHour = currentTime.getHours();
+            const currentMinute = currentTime.getMinutes();
+            const startTimeParts = room.startTime.split(":");
+            const endTimeParts = room.endTime.split(":");
+            
+            // Convert start and end time from Firebase to hours and minutes
+            const startHour = parseInt(startTimeParts[0], 10);
+            const startMinute = parseInt(startTimeParts[1], 10);
+            const endHour = parseInt(endTimeParts[0], 10);
+            const endMinute = parseInt(endTimeParts[1], 10);
+    
+            // Check if current time is within the range of start and end time
+            if (currentHour > startHour || (currentHour === startHour && currentMinute >= startMinute)) {
+              if (currentHour < endHour || (currentHour === endHour && currentMinute <= endMinute)) {
+                roomsFulfillingCondition.push(room);
+              }
+            }
+          });
+    
+          // Initialize an array to store the placeholders for rooms that do not fulfill the condition
+          const placeholders = [];
+    
+          // Check for each room number if it fulfills the condition, if not, add a placeholder
+          for (let i = 101; i <= 106; i++) {
+            const roomExists = roomsFulfillingCondition.some(room => room.roomNo === i.toString());
+            if (!roomExists) {
+              placeholders.push({
+                roomNo: i.toString(),
+                teacherName: "N/A",
+                classSection: "N/A",
+                subjectNo: "N/A",
+                classSection: "N/A",
+                startTime: "N/A",
+                endTime: "N/A",
+                status: "Unavailable"
+              });
+            }
+          }
+    
+          // Combine rooms fulfilling the condition with placeholders
+          const filteredInfo = [...roomsFulfillingCondition, ...placeholders];
+          filteredInfo.sort((a, b) => parseInt(a.roomNo) - parseInt(b.roomNo));
+    
           setInfo(filteredInfo);
         });
         return unsubscribe;
