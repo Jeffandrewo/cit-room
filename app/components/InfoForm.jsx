@@ -14,6 +14,7 @@ const InfoForm = () => {
 
   
   const {showAlert, infoAdd, setinfoAdd} = useContext(InfoContext);
+  
   const onSubmit = async () => {
     const { buildingName, classSection, floorNumber, roomNo, startTime, endTime, subjectNo, teacherName, day, status } = infoAdd;
 

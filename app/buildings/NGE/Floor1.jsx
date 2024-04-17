@@ -152,6 +152,12 @@ const F1 = () => {
             roomsFulfillingCondition.push(room); // Add the room to the list of rooms fulfilling the condition
           }
         });
+
+        // Filter rooms to only include those with room numbers 101 to 106
+          const filteredRooms = roomsFulfillingCondition.filter(room => {
+          const roomNo = parseInt(room.roomNo);
+          return roomNo >= 101 && roomNo <= 106;
+          });
     
           // Initialize an array to store the placeholders for rooms that do not fulfill the condition
           const placeholders = [];
@@ -173,9 +179,10 @@ const F1 = () => {
               });
             }
           }
-    
+          
           // Combine rooms fulfilling the condition with placeholders
-          const filteredInfo = [...roomsFulfillingCondition, ...placeholders];
+          //const filteredInfo = [...roomsFulfillingCondition, ...placeholders];
+          const filteredInfo = [...filteredRooms, ...placeholders];
           filteredInfo.sort((a, b) => parseInt(a.roomNo) - parseInt(b.roomNo));
     
           setInfo(filteredInfo);

@@ -31,6 +31,7 @@ const Todo = ({
   const { showAlert, setinfoAdd } = useContext(InfoContext);
 
   const [openConfirmation, setOpenConfirmation] = useState(false);
+  
 
   const handleOpenConfirmation = () => {
     setOpenConfirmation(true);
