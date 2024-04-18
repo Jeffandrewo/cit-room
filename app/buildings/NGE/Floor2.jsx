@@ -5,7 +5,6 @@ import Modal from "../../components/Modal";
 import styles from "../../buildings/NGE.module.css";
 import DashboardPage from "../../dashboard/pageModal";
 import { useUser } from "@clerk/nextjs";
-//NEED TO FIX !!!!!!!!!!!!!!!!!
 const mapDayToIndex = (dayName) => {
   const daysMap = {
     Sunday: 0,

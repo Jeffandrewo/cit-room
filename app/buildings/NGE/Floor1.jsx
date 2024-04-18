@@ -92,6 +92,7 @@ function Floor1({ roomsData }) {
                 Status: {selectedRoom?.status} <br />
                 Time: {selectedRoom?.startTime} - {selectedRoom?.endTime} <br />
               </h2>
+              
               <button onClick={() => toggleDashboard(selectedRoom)}>Update Info</button>
             </div>
           )}
