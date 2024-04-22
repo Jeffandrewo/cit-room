@@ -25,10 +25,13 @@ const Todo = ({
   startTime,
   subjectNo,
   teacherName,
+  day,
+  status,
 }) => {
   const { showAlert, setinfoAdd } = useContext(InfoContext);
 
   const [openConfirmation, setOpenConfirmation] = useState(false);
+  
 
   const handleOpenConfirmation = () => {
     setOpenConfirmation(true);
@@ -60,6 +63,8 @@ const Todo = ({
         startTime,
         subjectNo,
         teacherName,
+        day,
+        status,
       })}
         sx={{ mt: 3, boxShadow: 3 }}
         style={{ backgroundColor: "#FAFAFA" }}

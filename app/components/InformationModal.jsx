@@ -39,6 +39,8 @@ const Information = ({ selectedRoom }) => {
                     startTime={todo.startTime}
                     subjectNo={todo.subjectNo}
                     teacherName={todo.teacherName}
+                    day={todo.day}
+                    status={todo.status}
                 />
             ))}
         </div>

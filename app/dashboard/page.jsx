@@ -20,7 +20,9 @@ const DashboardPage = () => {
     startTime: '',
     endTime: '',
     subjectNo: '',
-    teacherName: ''
+    teacherName: '',
+    day: '',
+    status: ''
   });
   const showAlert = (type, msg) =>{
     setAlertType(type);
