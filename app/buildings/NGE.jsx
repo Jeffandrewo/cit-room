@@ -20,7 +20,7 @@ export default function NGE() {
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <p>Search Room:&nbsp;</p>
+        <p>Search:</p>
         <FormControl>
           <Select
             value={searchBy}

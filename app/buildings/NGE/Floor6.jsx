@@ -93,7 +93,7 @@ function Floor6({ roomsData, searchQuery, searchBy  }) {
       {filteredRooms.map((room, index) => (
         <button
           key={index}
-          className={styles.room}
+          className={`${styles.room} ${room.status === 'Available' ? styles.available : styles.notAvailable}`}
           style={{ order: parseInt(room.roomNo) }}
           onClick={() => openModal(room)}
         >
@@ -101,8 +101,8 @@ function Floor6({ roomsData, searchQuery, searchBy  }) {
           <p className="text-gray-600 mb-1">TEACHER: {room.teacherName}</p>
           <p className="text-gray-600 mb-1">Subject: {room.subjectNo}</p>
           <div className="items-center">
-            <div className="w-50 h-2 bg-green-500 "></div>
-            <span className="text-blue-500">{room.status}</span>
+            <div className="w-50 h-2" style={{ backgroundColor: room.status === 'Available' ? 'green' : 'red' }}></div>
+            <span className={`${room.status === 'Available' ? styles.availableText : styles.notAvailableText}`}>{room.status}</span>
           </div>
         </button>
       ))}

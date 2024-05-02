@@ -21,3 +21,19 @@
   font-weight: 600; /* font-semibold in Tailwind corresponds to font-weight: 600 */
   text-align: left; /* text-left in Tailwind corresponds to text-align: left */
 }
+
+.available {
+  border-top: 2px solid #00cc66;
+}
+
+.notAvailable {
+  border-top: 2px solid #cc0000;
+}
+
+.availableText {
+  color: green;
+}
+
+.notAvailableText {
+  color: red;
+}
