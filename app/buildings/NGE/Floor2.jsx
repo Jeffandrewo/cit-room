@@ -5,6 +5,7 @@ import Modal from "../../components/Modal";
 import styles from "../../buildings/NGE.module.css";
 import DashboardPage from "../../dashboard/pageModal";
 import { useUser } from "@clerk/nextjs";
+
 const mapDayToIndex = (dayName) => {
   const daysMap = {
     Sunday: 0,
@@ -18,88 +19,124 @@ const mapDayToIndex = (dayName) => {
   return daysMap[dayName];
 };
 
-function Floor2({ roomsData }) {
-    const [showModal, setShowModal] = useState(false);
-    const [selectedRoom, setSelectedRoom] = useState(null);
-    const [showDashboard, setShowDashboard] = useState(false);
-    const { isSignedIn } = useUser();
-  
-    const openModal = (room) => {
+function Floor2({ roomsData, searchQuery, searchBy }) {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [showDashboard, setShowDashboard] = useState(false);
+  const { isSignedIn } = useUser();
+  const [filteredRooms, setFilteredRooms] = useState(roomsData); // Initialize with all rooms
+
+  const openModal = (room) => {
+    setSelectedRoom(room);
+    setShowModal(true);
+  };
+
+  const toggleDashboard = (room) => {
+    if (isSignedIn) {
       setSelectedRoom(room);
-      setShowModal(true);
-    };
-  
-    const toggleDashboard = (room) => {
-      if (isSignedIn) {
-        setSelectedRoom(room);
-        setShowDashboard(!showDashboard);
+      setShowDashboard(!showDashboard);
+    } else {
+      console.log("User is not logged in."); // You can handle this case as needed
+    }
+  };
+
+  const closeDashboard = () => {
+    setShowDashboard(false);
+  };
+
+  // Calculate maximum height based on whether dashboard is open or not
+  const getMaxHeight = () => {
+    if (showDashboard) {
+      return '80vh'; // Adjust as needed
+    } else {
+      return '50vh'; // Adjust as needed
+    }
+  };
+
+  useEffect(() => {
+    // Function to filter rooms based on search query
+    const filterRooms = () => {
+      if (searchQuery === "") {
+        setFilteredRooms(roomsData); // Show all rooms if search query is empty
       } else {
-        console.log("User is not logged in."); // You can handle this case as needed
+        const filtered = roomsData.filter(room => {
+          const value = room[searchBy] ? room[searchBy].toLowerCase() : "";
+          return value.includes(searchQuery.toLowerCase());
+        });
+        setFilteredRooms(filtered);
       }
     };
-  
-    const closeDashboard = () => {
-      setShowDashboard(false);
-    };
-  
-    // Calculate maximum height based on whether dashboard is open or not
-    const getMaxHeight = () => {
-      if (showDashboard) {
-        return '80vh'; // Adjust as needed
-      } else {
-        return '50vh'; // Adjust as needed
+
+    //filterRooms(); // Initial filtering
+    if (searchQuery === "") {
+      setFilteredRooms(roomsData);
+    }
+    // Listener for key press events to detect Enter key
+    const handleKeyPress = (event) => {
+      if (event.key === 'Enter') {
+        filterRooms(); // Apply filtering when Enter is pressed
       }
     };
-  
-    return (
-      <div className="flex flex-wrap justify-center text-center">
-        <div className="w-full mt-4">
-          <h1>FLOOR 2</h1>
-          </div>
-        {roomsData.map((room, index) => (
-          <button
-            key={index}
-            className={styles.room}
-            style={{ order: parseInt(room.roomNo) }}
-            onClick={() => openModal(room)}
-          >
-            <h2 className="text-lg font-bold mb-1">ROOM {room.roomNo}</h2>
-            <p className="text-gray-600 mb-1">TEACHER: {room.teacherName}</p>
-            <p className="text-gray-600 mb-1">Subject: {room.subjectNo}</p>
-            <div className="items-center">
-              <div className="w-50 h-2 bg-green-500 "></div>
-              <span className="text-blue-500">{room.status}</span>
-            </div>
-          </button>
-        ))}
-        <Modal isVisible={showModal} onClose={() => setShowModal(false)} onCloseDashboard={closeDashboard}>
-          <div className="modal-content" style={{ maxHeight: getMaxHeight(), overflowY: 'auto' }}>
-            {showDashboard ? (
-              <div>
-                <DashboardPage onClose={() => setShowDashboard(false)} selectedRoom={selectedRoom} />
-              </div>
-            ) : (
-              <div>
-                <h2 className={styles.modal}>
-                  Building Name: {selectedRoom?.buildingName} <br />
-                  Floor: {selectedRoom?.floorNumber} <br />
-                  Room #: {selectedRoom?.roomNo} <br />
-                  Teacher: {selectedRoom?.teacherName} <br />
-                  Section: {selectedRoom?.classSection} <br />
-                  Subject: {selectedRoom?.subjectNo} <br />
-                  Day: {selectedRoom?.day} <br />
-                  Status: {selectedRoom?.status} <br />
-                  Time: {selectedRoom?.startTime} - {selectedRoom?.endTime} <br />
-                </h2>
-                <button onClick={() => toggleDashboard(selectedRoom)}>Update Info</button>
-              </div>
-            )}
-          </div>
-        </Modal>
+
+    document.addEventListener("keypress", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keypress", handleKeyPress);
+    };
+
+  }, [searchQuery, searchBy, roomsData]);
+
+  return (
+    <div className="flex flex-wrap justify-center text-center">
+      <div className="w-full mt-4">
+        <h1>FLOOR 2</h1>
       </div>
-    );
-  }
-const F2 = () => {
+      {filteredRooms.map((room, index) => (
+        <button
+          key={index}
+          className={styles.room}
+          style={{ order: parseInt(room.roomNo) }}
+          onClick={() => openModal(room)}
+        >
+          <h2 className="text-lg font-bold mb-1">ROOM {room.roomNo}</h2>
+          <p className="text-gray-600 mb-1">TEACHER: {room.teacherName}</p>
+          <p className="text-gray-600 mb-1">Subject: {room.subjectNo}</p>
+          <div className="items-center">
+            <div className="w-50 h-2 bg-green-500 "></div>
+            <span className="text-blue-500">{room.status}</span>
+          </div>
+        </button>
+      ))}
+      <Modal isVisible={showModal} onClose={() => setShowModal(false)} onCloseDashboard={closeDashboard}>
+        <div className="modal-content" style={{ maxHeight: getMaxHeight(), overflowY: 'auto' }}>
+          {showDashboard ? (
+            <div>
+              <DashboardPage onClose={() => setShowDashboard(false)} selectedRoom={selectedRoom} />
+            </div>
+          ) : (
+            <div>
+              <h2 className={styles.modal}>
+                Building Name: {selectedRoom?.buildingName} <br />
+                Floor: {selectedRoom?.floorNumber} <br />
+                Room #: {selectedRoom?.roomNo} <br />
+                Teacher: {selectedRoom?.teacherName} <br />
+                Section: {selectedRoom?.classSection} <br />
+                Subject: {selectedRoom?.subjectNo} <br />
+                Day: {selectedRoom?.day} <br />
+                Status: {selectedRoom?.status} <br />
+                Time: {selectedRoom?.startTime} - {selectedRoom?.endTime} <br />
+              </h2>
+              
+              <button onClick={() => toggleDashboard(selectedRoom)}>Update Info</button>
+            </div>
+          )}
+        </div>
+      </Modal>
+    </div>
+  );
+}
+
+const F2 = ({ searchQuery, searchBy }) => {
   const [info, setInfo] = useState([]);
   
   useEffect(() => {
@@ -194,7 +231,7 @@ const F2 = () => {
 
   return (
     <div>
-      <Floor2 roomsData={info} />
+      <Floor2 roomsData={info} searchQuery={searchQuery} searchBy={searchBy} />
     </div>
   );
 };

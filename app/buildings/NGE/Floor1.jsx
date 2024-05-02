@@ -19,11 +19,12 @@ const mapDayToIndex = (dayName) => {
   return daysMap[dayName];
 };
 
-function Floor1({ roomsData }) {
+function Floor1({ roomsData, searchQuery, searchBy }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [showDashboard, setShowDashboard] = useState(false);
   const { isSignedIn } = useUser();
+  const [filteredRooms, setFilteredRooms] = useState(roomsData); // Initialize with all rooms
 
   const openModal = (room) => {
     setSelectedRoom(room);
@@ -52,12 +53,44 @@ function Floor1({ roomsData }) {
     }
   };
 
+  useEffect(() => {
+    // Function to filter rooms based on search query
+    const filterRooms = () => {
+      if (searchQuery === "") {
+        setFilteredRooms(roomsData); // Show all rooms if search query is empty
+      } else {
+        const filtered = roomsData.filter(room => {
+          const value = room[searchBy] ? room[searchBy].toLowerCase() : "";
+          return value.includes(searchQuery.toLowerCase());
+        });
+        setFilteredRooms(filtered);
+      }
+    };
+
+    //filterRooms(); // Initial filtering
+    if (searchQuery === "") {
+      setFilteredRooms(roomsData);
+    }
+    const handleKeyPress = (event) => {
+      if (event.key === 'Enter') {
+        filterRooms(); // Apply filtering when Enter is pressed
+      }
+    };
+
+    document.addEventListener("keypress", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keypress", handleKeyPress);
+    };
+
+  }, [searchQuery, searchBy, roomsData]);
+
   return (
     <div className="flex flex-wrap justify-center text-center">
       <div className="w-full mt-4">
         <h1>FLOOR 1</h1>
-        </div>
-      {roomsData.map((room, index) => (
+      </div>
+      {filteredRooms.map((room, index) => (
         <button
           key={index}
           className={styles.room}
@@ -102,7 +135,7 @@ function Floor1({ roomsData }) {
   );
 }
 
-const F1 = () => {
+const F1 = ({ searchQuery, searchBy }) => {
   const [info, setInfo] = useState([]);
   
   useEffect(() => {
@@ -139,25 +172,19 @@ const F1 = () => {
             
     
             // Check if current time is within the range of start and end time
-          /*if (currentHour > startHour || (currentHour === startHour && currentMinute >= startMinute)) {
-              if (currentHour < endHour || (currentHour === endHour && currentMinute <= endMinute)) {
-                roomsFulfillingCondition.push(room);
-              }
+            if (
+              currentDay === mapDayToIndex(room.day) && // Map room day to index using mapDayToIndex
+              (currentHour > startHour || (currentHour === startHour && currentMinute >= startMinute)) &&
+              (currentHour < endHour || (currentHour === endHour && currentMinute <= endMinute))
+            ) {
+              roomsFulfillingCondition.push(room); // Add the room to the list of rooms fulfilling the condition
             }
-          });*/
-          if (
-            currentDay === mapDayToIndex(room.day) && // Map room day to index using mapDayToIndex
-            (currentHour > startHour || (currentHour === startHour && currentMinute >= startMinute)) &&
-            (currentHour < endHour || (currentHour === endHour && currentMinute <= endMinute))
-          ) {
-            roomsFulfillingCondition.push(room); // Add the room to the list of rooms fulfilling the condition
-          }
-        });
+          });
 
-        // Filter rooms to only include those with room numbers 101 to 106
+          // Filter rooms to only include those with room numbers 101 to 106
           const filteredRooms = roomsFulfillingCondition.filter(room => {
-          const roomNo = parseInt(room.roomNo);
-          return roomNo >= 101 && roomNo <= 106;
+            const roomNo = parseInt(room.roomNo);
+            return roomNo >= 101 && roomNo <= 106;
           });
     
           // Initialize an array to store the placeholders for rooms that do not fulfill the condition
@@ -182,7 +209,6 @@ const F1 = () => {
           }
           
           // Combine rooms fulfilling the condition with placeholders
-          //const filteredInfo = [...roomsFulfillingCondition, ...placeholders];
           const filteredInfo = [...filteredRooms, ...placeholders];
           filteredInfo.sort((a, b) => parseInt(a.roomNo) - parseInt(b.roomNo));
     
@@ -199,7 +225,7 @@ const F1 = () => {
 
   return (
     <div>
-      <Floor1 roomsData={info} />
+      <Floor1 roomsData={info} searchQuery={searchQuery} searchBy={searchBy} />
     </div>
   );
 };
