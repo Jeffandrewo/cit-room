@@ -4,7 +4,7 @@ import { db } from "../../../firebase"; // Import your firebase instance
 import Modal from "../../components/Modal";
 import styles from "../../buildings/NGE.module.css";
 import DashboardPage from "../../dashboard/pageModal";
-import { useUser } from "@clerk/nextjs";
+import { useUser} from "@clerk/nextjs";
 
 const mapDayToIndex = (dayName) => {
   const daysMap = {
@@ -126,7 +126,9 @@ function Floor1({ roomsData, searchQuery, searchBy }) {
                 Time: {selectedRoom?.startTime} - {selectedRoom?.endTime} <br />
               </h2>
               
-              <button onClick={() => toggleDashboard(selectedRoom)}>Update Info</button>
+              {isSignedIn && (
+                <button onClick={() => toggleDashboard(selectedRoom)}>Update Info</button>
+               )}
             </div>
           )}
         </div>
@@ -137,6 +139,7 @@ function Floor1({ roomsData, searchQuery, searchBy }) {
 
 const F1 = ({ searchQuery, searchBy }) => {
   const [info, setInfo] = useState([]);
+
   
   useEffect(() => {
     const fetchRoomsData = async () => {

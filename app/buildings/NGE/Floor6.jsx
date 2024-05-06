@@ -125,7 +125,9 @@ function Floor6({ roomsData, searchQuery, searchBy  }) {
                 Status: {selectedRoom?.status} <br />
                 Time: {selectedRoom?.startTime} - {selectedRoom?.endTime} <br />
               </h2>
-              <button onClick={() => toggleDashboard(selectedRoom)}>Update Info</button>
+              {isSignedIn && (
+                <button onClick={() => toggleDashboard(selectedRoom)}>Update Info</button>
+              )}
             </div>
           )}
         </div>
