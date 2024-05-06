@@ -25,6 +25,9 @@
     "@mui/lab": "^5.0.0-alpha.166",
     "@mui/material": "^5.15.11",
     "@mui/styled-engine-sc": "^6.0.0-alpha.17",
+    "@mui/x-date-pickers": "^7.3.2",
+    "bootstrap": "^5.3.3",
+    "dayjs": "^1.11.11",
     "firebase": "^10.8.1",
     "moment": "^2.30.1",
     "mongoose": "^8.2.0",
@@ -35,7 +38,9 @@
     "react-dom": "^18",
     "react-icons": "^5.0.1",
     "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "^6.23.0",
     "react-time-picker": "^6.6.0",
+    "react-toastify": "^10.0.5",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {

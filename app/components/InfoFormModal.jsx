@@ -65,22 +65,28 @@ const InfoForm = ({ selectedRoom }) => {
       return;
     }
 
-    if (infoAdd?.hasOwnProperty('timestamp')) {
-      // update
-      docRef = doc(db, "info", infoAdd.id);
-      const infoUpdated = { ...infoAdd, timestamp: serverTimestamp() }
-      updateDoc(docRef, infoUpdated)
-      
-      showAlert('success', `Information with id ${docRef.id} is updated successfully`);
-    } else {
-      const collectionRef = collection(db, "info");
-      try {
-        docRef = await addDoc(collectionRef, { ...infoAdd, timestamp: serverTimestamp() });
-        console.log('Firestore Write Success:', docRef.id);
-      } catch (error) {
-        console.error('Firestore Write Error:', error);
+    try {
+      // If ID exists, it means we're updating an existing document
+      if (id) {
+        docRef = doc(db, "info", id);
+        const infoUpdated = { ...infoAdd, timestamp: serverTimestamp() };
+        await updateDoc(docRef, infoUpdated);
+        showAlert('success', `Information with id ${id} is updated successfully`);
+      } else {
+        // If ID doesn't exist, it means we're adding a new document
+        if (selectedRoom?.status === "Available") {
+          // Create a new document only if the selected room is a placeholder
+          const collectionRef = collection(db, "info");
+          docRef = await addDoc(collectionRef, { ...infoAdd, timestamp: serverTimestamp() });
+          console.log('Firestore Write Success:', docRef.id);
+          showAlert('success', `Information with id ${docRef.id} is added successfully`);
+        } else {
+          showAlert('error', 'Cannot update information without an ID.');
+        }
       }
-      showAlert('success', `Information with id ${docRef.id} is added successfully`);
+    } catch (error) {
+      console.error('Firestore Write Error:', error);
+      showAlert('error', 'An error occurred while processing your request.');
     }
   }
 

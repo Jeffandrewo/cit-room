@@ -3,6 +3,7 @@ import { MdAccountCircle } from "react-icons/md";
 import { UserButton, auth } from "@clerk/nextjs";
 
 const Header = () => {
+ 
   const { userId } = auth();
 
   return (
@@ -15,23 +16,40 @@ const Header = () => {
         </Link>
       </div>
       <div className="text-white flex items-center">
-        <Link
-          href="/calendar"
-          className="text-lg font-bold hover:text-black mr-10"
-        >
-          Calendar
-        </Link>
-        <Link
-          href="/about-us"
-          className="text-lg font-bold hover:text-black mr-10"
-        >
-          About Us
-        </Link>
+        <div className="relative inline-block text-left">
+          <div className="group">
+            <button className="text-lg font-bold hover:text-black mr-10 group-hover:text-black">
+              Events
+            </button>
+            <div className="w-40 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute right-0 top-full mt-2">
+              
+
+              {userId && ( // Conditionally render the Booked Event link
+                <Link href="/bookingevent">
+                  <div className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200">Booked Event</div>
+                </Link>
+              )}
+
+              <Link href="/eventlist">
+                <div className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200">Event List</div>
+              </Link>
+              <Link href="/addingEvent">
+                <div className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200">Add Event</div>
+              </Link>
+            </div>
+          </div>
+        </div>
         <Link
           href="/contact-us"
           className="text-lg font-bold hover:text-black mr-10"
         >
           Contact Us
+        </Link>
+        <Link
+          href="/calendar"
+          className="text-lg font-bold hover:text-black mr-10"
+        >
+          Calendar
         </Link>
         {userId && (
           <Link

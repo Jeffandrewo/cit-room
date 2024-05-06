@@ -20,11 +20,12 @@ const mapDayToIndex = (dayName) => {
   return daysMap[dayName];
 };
 
-function Floor8({ roomsData }) {
+function Floor8({ roomsData, searchQuery, searchBy  }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [showDashboard, setShowDashboard] = useState(false);
   const { isSignedIn } = useUser();
+  const [filteredRooms, setFilteredRooms] = useState(roomsData);
 
   const openModal = (room) => {
     setSelectedRoom(room);
@@ -52,16 +53,48 @@ function Floor8({ roomsData }) {
       return '50vh'; // Adjust as needed
     }
   };
+  useEffect(() => {
+    // Function to filter rooms based on search query
+    const filterRooms = () => {
+      if (searchQuery === "") {
+        setFilteredRooms(roomsData); // Show all rooms if search query is empty
+      } else {
+        const filtered = roomsData.filter(room => {
+          const value = room[searchBy] ? room[searchBy].toLowerCase() : "";
+          return value.includes(searchQuery.toLowerCase());
+        });
+        setFilteredRooms(filtered);
+      }
+    };
+
+    //filterRooms(); // Initial filtering
+    if (searchQuery === "") {
+      setFilteredRooms(roomsData);
+    }
+    // Listener for key press events to detect Enter key
+    const handleKeyPress = (event) => {
+      if (event.key === 'Enter') {
+        filterRooms(); // Apply filtering when Enter is pressed
+      }
+    };
+
+    document.addEventListener("keypress", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keypress", handleKeyPress);
+    };
+
+  }, [searchQuery, searchBy, roomsData]);
 
   return (
     <div className="flex flex-wrap justify-center text-center">
       <div className="w-full mt-4">
         <h1>FLOOR 8</h1>
         </div>
-      {roomsData.map((room, index) => (
+      {filteredRooms.map((room, index) => (
         <button
           key={index}
-          className={styles.room}
+          className={`${styles.room} ${room.status === 'Available' ? styles.available : styles.notAvailable}`}
           style={{ order: parseInt(room.roomNo) }}
           onClick={() => openModal(room)}
         >
@@ -69,8 +102,8 @@ function Floor8({ roomsData }) {
           <p className="text-gray-600 mb-1">TEACHER: {room.teacherName}</p>
           <p className="text-gray-600 mb-1">Subject: {room.subjectNo}</p>
           <div className="items-center">
-            <div className="w-50 h-2 bg-green-500 "></div>
-            <span className="text-blue-500">{room.status}</span>
+            <div className="w-50 h-2" style={{ backgroundColor: room.status === 'Available' ? 'green' : 'red' }}></div>
+            <span className={`${room.status === 'Available' ? styles.availableText : styles.notAvailableText}`}>{room.status}</span>
           </div>
         </button>
       ))}
@@ -102,7 +135,7 @@ function Floor8({ roomsData }) {
   );
 }
 
-const F8 = () => {
+const F8 = ({ searchQuery, searchBy }) => {
   const [info, setInfo] = useState([]);
   
   useEffect(() => {
@@ -199,7 +232,7 @@ const F8 = () => {
 
   return (
     <div>
-      <Floor8 roomsData={info} />
+      <Floor8 roomsData={info} searchQuery={searchQuery} searchBy={searchBy} />
     </div>
   );
 };

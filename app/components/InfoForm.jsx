@@ -28,7 +28,7 @@ const InfoForm = () => {
     showAlert('error', 'Invalid floor number. Please enter a number between 1 and 8.');
     return;
   }
-
+  
   const floorPrefix = floorNumber.toString();
   if (!roomNo.startsWith(floorPrefix)) {
     showAlert('error', `Room number must start with ${floorPrefix} on floor ${floorNumber}.`);
@@ -46,8 +46,37 @@ const InfoForm = () => {
       showAlert('error', `Room number must be between ${floorNumber}01 and ${floorNumber}08`);
       return;
     }
+// Check for overlapping schedules
+const scheduleQuery = query(collection(db, 'info'), 
+  where('roomNo', '==', roomNo),
+  where('day', '==', day)
+);
 
+const overlappingSchedulesSnapshot = await getDocs(scheduleQuery);
+const overlappingSchedules = overlappingSchedulesSnapshot.docs;
 
+const conflictingSchedule = overlappingSchedules.find(schedule => {
+  const existingStartTime = schedule.get('startTime');
+  const existingEndTime = schedule.get('endTime');
+
+  // Check if new schedule's start time overlaps with existing schedule
+  const startTimeOverlaps = existingStartTime < endTime && existingEndTime > startTime;
+
+  // Check if new schedule's end time overlaps with existing schedule
+  const endTimeOverlaps = existingStartTime < endTime && existingEndTime > endTime;
+
+  // Check if new schedule is completely within existing schedule
+  const withinExistingSchedule = startTime >= existingStartTime && endTime <= existingEndTime;
+
+  return startTimeOverlaps || endTimeOverlaps || withinExistingSchedule;
+});
+
+if (conflictingSchedule) {
+  showAlert('error', 'There is an overlapping schedule for the selected day and time range.');
+  return;
+}
+
+  
 
     if (infoAdd?.hasOwnProperty('timestamp')){
       // update
@@ -95,6 +124,7 @@ const InfoForm = () => {
       status: "",
     });
   };
+
    
   return (
     <div ref={inputAreaRef}>
