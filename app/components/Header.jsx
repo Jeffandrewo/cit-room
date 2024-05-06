@@ -65,9 +65,10 @@ const Header = () => {
         >
           Room Details
         </Link>
+        
         {!userId && (
           <Link
-            href="/sign-up"
+            href="/sign-in"
             className="text-gray-300 hover:text-white ml-5"
           >
             <MdAccountCircle size={30} />
