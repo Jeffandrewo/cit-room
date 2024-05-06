@@ -91,7 +91,7 @@ function BookedEvents() {
 
   return (
     <div className="flex flex-wrap justify-start max-w-screen-xl mx-auto">
-      {bookedEvents.map((event) => (
+    {bookedEvents.map((event) => (
   <div key={event.id} className="card p-3 m-2 border border-gray-300 rounded-md">
     <h3 style={{ fontWeight: 'bold' }}>{event.name}</h3>
     <p><strong>Date:</strong> {moment(event.date).format("MMMM DD, YYYY")}</p>
