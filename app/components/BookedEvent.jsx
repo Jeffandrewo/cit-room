@@ -92,26 +92,27 @@ function BookedEvents() {
   return (
     <div className="flex flex-wrap justify-start max-w-screen-xl mx-auto">
       {bookedEvents.map((event) => (
-        <div key={event.id} className="card p-3 m-2 border border-gray-300 rounded-md" style={{ order: parseInt(event.roomNo) }}>
-          <h3 style={{ fontWeight: 'bold' }}>{event.name}</h3>
-          <p><strong>Date:</strong> {moment(event.date).format("MMMM DD, YYYY")}</p>
-          <p><strong>Location:</strong> {event.location}</p>
-          <p><strong>Organizer:</strong> {event.organizer}</p>
-          <div className="flex justify-center">
-            <Button
-              variant="contained"
-              style={{ marginRight: "1rem" }}
-              onClick={() => handleApproveEvent(event)}
-              disabled={approvedEvents.some((approvedEvent) => approvedEvent.id === event.id)}
-            >
-              Approve Event
-            </Button>
-            <Button variant="contained" color="secondary" onClick={() => handleCancelEvent(event)}>
-              Cancel Event
-            </Button>
-          </div>
-        </div>
-      ))}
+  <div key={event.id} className="card p-3 m-2 border border-gray-300 rounded-md">
+    <h3 style={{ fontWeight: 'bold' }}>{event.name}</h3>
+    <p><strong>Date:</strong> {moment(event.date).format("MMMM DD, YYYY")}</p>
+    <p><strong>Location:</strong> {event.location}</p>
+    <p><strong>Organizer:</strong> {event.organizer}</p>
+    <div className="flex justify-center">
+      <Button
+        variant="contained"
+        style={{ marginRight: "1rem" }}
+        onClick={() => handleApproveEvent(event)}
+        disabled={approvedEvents.some((approvedEvent) => approvedEvent.id === event.id)}
+      >
+        Approve Event
+      </Button>
+      <Button variant="contained" color="secondary" onClick={() => handleCancelEvent(event)}>
+        Cancel Event
+      </Button>
+    </div>
+  </div>
+))}
+
       <ToastContainer />
     </div>
   );

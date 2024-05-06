@@ -21,7 +21,7 @@ const Header = () => {
             <button className="text-lg font-bold hover:text-black mr-10 group-hover:text-black">
               Events
             </button>
-            <div className="w-40 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute right-0 top-full mt-2">
+            <div className="w-40 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute right-0 top-full mt-2" style={{ zIndex: 10 }}>
               
 
               {userId && ( // Conditionally render the Booked Event link
@@ -64,12 +64,6 @@ const Header = () => {
           className="text-lg font-bold hover:text-black mr-10"
         >
           Room Details
-        </Link>
-        <Link
-          href="/search-room"
-          className="text-lg font-bold hover:text-black mr-20"
-        >
-          Search Room
         </Link>
         {!userId && (
           <Link
