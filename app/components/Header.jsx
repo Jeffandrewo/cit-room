@@ -40,6 +40,12 @@ const Header = () => {
           </div>
         </div>
         <Link
+          href="/about-us"
+          className="text-lg font-bold hover:text-black mr-10"
+        >
+          About Us
+        </Link>
+        <Link
           href="/contact-us"
           className="text-lg font-bold hover:text-black mr-10"
         >
