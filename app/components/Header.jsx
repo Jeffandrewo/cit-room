@@ -57,6 +57,12 @@ const Header = () => {
         >
           Calendar
         </Link>
+        <Link
+          href="/news"
+          className="text-lg font bold hover:text-black mr-10"
+        >
+          News
+        </Link>
         {userId && (
           <Link
             href="/dashboard"
