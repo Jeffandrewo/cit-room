@@ -1,41 +1,96 @@
 import React, { useState } from "react";
+import Image from "next/image";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../firebase";
 import axios from "axios";
+import { auth } from "@clerk/nextjs";
 
 const PostHere = () => {
-  const [imageFile, setImageFile] = useState(null);
+  const [image, setImage] = useState(null);
   const [postTitle, setPostTitle] = useState("");
+  const [postDescription, setPostDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const handleImageChange = (event) => {
-    setImageFile(event.target.files[0]);
+    const selectedImage = event.target.files[0];
+    setImage(selectedImage);
+    setImagePreview(URL.createObjectURL(selectedImage)); // Set image preview URL
   };
 
   const handleTitleChange = (event) => {
     setPostTitle(event.target.value);
   };
 
+  const handleDescriptionChange = (event) => {
+    setPostDescription(event.target.value);
+  };
+
+  const uploadPost = async (downloadURL, postTitle, postMessage) => {
+    "use server"
+    const { user } = auth().user;
+    const { id, firstName } = user;
+
+    const data = {
+      user_id: id,
+      photo_url: downloadURL,
+      firstName,
+      postTitle,
+      postMessage,
+    };
+
+    try {
+      const response = await axios.post("/api/uploads", data);
+
+      setPostTitle("");
+      setPostMessage("");
+      setImage(null);
+      setMessage("Post uploaded successfully");
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+
   const handleImageUpload = async () => {
-    if (!imageFile || !postTitle) {
-      setError("Please provide an image and content for your post");
+    if (!postTitle) {
+      setError("Please provide title for your post.");
+      return;
+    }
+
+    if (!postDescription) {
+      setError("Please provide content for your post");
+      return;
+    }
+
+    if (!image) {
+      setError("Please provide an image for your post");
       return;
     }
     setLoading(true);
     try {
-      const formData = new FormData();
-      formData.append("image", imageFile);
-      formData.append("title", postTitle);
+      const storageRef = ref(storage, `images/${image.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, image);
 
-      const response = await axios.post('http://localhost:3000/api/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      uploadTask.on(
+        "state_changed",
+        null,
+        (error) => {
+          console.error(error.message);
+          setError("Error uploading image");
+          setLoading(false);
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          setMessage("Post Upload Completely");
+          setLoading(false);
+          await uploadPost(downloadURL, postTitle, postMessage);
         }
-      });
-      setMessage(response.data.message);
-      setLoading(false);
+      );
     } catch (error) {
-      setError('Error uploading image');
+      console.error(error.message);
+      setError("Error uploading image");
       setLoading(false);
     }
   };
@@ -50,11 +105,25 @@ const PostHere = () => {
         className="w-full h-12 border rounded-md p-2 mb-2"
       />
       <textarea
+        value={postDescription}
+        onChange={handleDescriptionChange}
         placeholder="Got any news?"
         className="w-full h-12 border rounded-md p-2 mb-2"
       ></textarea>
-      <div className="flex justify-between">
-        <label htmlFor="image-upload" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded cursor-pointer">
+      {imagePreview && (
+        <Image
+          src={imagePreview}
+          width={25}
+          height={25}
+          alt="Selected Image"
+          className="w-full h-auto mb-2"
+        />
+      )}
+      <div className="flex justify-between items-center">
+        <label
+          htmlFor="image-upload"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded cursor-pointer"
+        >
           Upload Image
         </label>
         <input

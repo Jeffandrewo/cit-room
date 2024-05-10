@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from 'fs'
+import fs from "fs";
+import { serverTimestamp } from "firebase/firestore";
 
 export const GET = async (request) => {
   return NextResponse.json({
@@ -10,23 +11,19 @@ export const GET = async (request) => {
 
 export const POST = async (request) => {
   try {
-    const contentType = request.header['content-type']
+    const data = await request.json();
     
-    if(contentType.incluedes('multipart/form-data')) {
-      const chunks = []
-      console.log('MUAGIII KAA')
-      request.on('end', async() => {
-        const data = Buffer.concat(chunks);
-      })
-    }
+    await addDoc(collection(db, 'posts'), {
+      ...data,
+      created_at: serverTimestamp()
+    })
     return NextResponse.json({
       success: true,
-      contents: imageFile
     });
   } catch (error) {
     return NextResponse.json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
 };
