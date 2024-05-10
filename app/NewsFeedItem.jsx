@@ -1,8 +1,7 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 
-
-const NewsFeedItem = ({ id, title, content, imageUrl, profileUrl, profileName }) => {
+const NewsFeedItem = ({ news }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
@@ -24,19 +23,27 @@ const NewsFeedItem = ({ id, title, content, imageUrl, profileUrl, profileName })
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 flex relative">
-      <img src={profileUrl} alt="Profile" className="h-12 w-12 rounded-full mr-4 bg-blue-500" />
+      <img
+        src={news?.user_photo}
+        alt="Profile"
+        className="h-12 w-12 rounded-full mr-4 bg-blue-500"
+      />
       <div className="text-gray-800">
         <div>
-          <h2 className="text-lg font-semibold text-blue-500">{profileName}</h2>
+          <h2 className="text-lg font-semibold text-blue-500">
+            {news?.firstName}
+          </h2>
           <p className="text-sm text-gray-500 mb-2">1h ago</p>
         </div>
-        <h3 className="text-xl font-bold mb-2">{title}</h3>
+        <h3 className="text-xl font-bold mb-2">{news?.postTitle}</h3>
         {expanded ? (
-          <p className="text-gray-700 mb-2">{content}</p>
+          <p className="text-gray-700 mb-2">{news?.postDescription}</p>
         ) : (
-          <p className="text-gray-700 mb-2">{content.slice(0, 100)}</p>
+          <p className="text-gray-700 mb-2">
+            {news?.postDescription?.slice(0, 100)}
+          </p>
         )}
-        {content.length > 100 && (
+        {news?.postDescription?.length > 100 && (
           <button
             className="text-blue-500 font-semibold text-sm"
             onClick={toggleExpandContent}
@@ -44,7 +51,13 @@ const NewsFeedItem = ({ id, title, content, imageUrl, profileUrl, profileName })
             {expanded ? "Show less" : "Show more"}
           </button>
         )}
-        {imageUrl && <img src={imageUrl} alt="News Image" className="w-full mb-4 rounded-lg" />}
+        {news?.photo_url && (
+          <img
+            src={news?.photo_url}
+            alt="News Image"
+            className="w-full mb-4 rounded-lg"
+          />
+        )}
       </div>
       <div className="absolute top-2 right-2">
         <button

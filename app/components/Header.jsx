@@ -1,10 +1,11 @@
+
 import Link from "next/link";
 import { MdAccountCircle } from "react-icons/md";
 import { UserButton, auth } from "@clerk/nextjs";
 
 const Header = () => {
-  const { userId } = auth();
-
+  const { userId, user } = auth();
+  
   return (
     <nav className="[background-color:_#09cfcf] relative py-4 px-6  flex items-center justify-between mb-5 ">
       <div className="flex items-center">

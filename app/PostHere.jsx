@@ -3,9 +3,9 @@ import Image from "next/image";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase";
 import axios from "axios";
-import { auth } from "@clerk/nextjs";
+import { useUser } from "@clerk/clerk-react";
 
-const PostHere = () => {
+const PostHere = ({update, setUpdate}) => {
   const [image, setImage] = useState(null);
   const [postTitle, setPostTitle] = useState("");
   const [postDescription, setPostDescription] = useState("");
@@ -13,30 +13,28 @@ const PostHere = () => {
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const { user } = useUser();
 
   const handleImageChange = (event) => {
     const selectedImage = event.target.files[0];
     setImage(selectedImage);
-    setImagePreview(URL.createObjectURL(selectedImage)); // Set image preview URL
+    setImagePreview(URL.createObjectURL(selectedImage));
   };
 
   const handleTitleChange = (event) => {
     setPostTitle(event.target.value);
   };
-
+  
   const handleDescriptionChange = (event) => {
     setPostDescription(event.target.value);
   };
 
   const uploadPost = async (downloadURL, postTitle, postMessage) => {
-    "use server"
-    const { user } = auth().user;
-    const { id, firstName } = user;
-
     const data = {
-      user_id: id,
+      user_id: user.id,
       photo_url: downloadURL,
-      firstName,
+      firstName: user.firstName,
+      user_photo: user.imageUrl,
       postTitle,
       postMessage,
     };
@@ -45,9 +43,12 @@ const PostHere = () => {
       const response = await axios.post("/api/uploads", data);
 
       setPostTitle("");
-      setPostMessage("");
+      setPostDescription("");
       setImage(null);
-      setMessage("Post uploaded successfully");
+      setImagePreview(null);
+      
+      setMessage(response.data.message);
+      setUpdate(!update)
     } catch (error) {
       setMessage(error.message);
     }
