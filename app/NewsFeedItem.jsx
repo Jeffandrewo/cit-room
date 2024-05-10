@@ -84,4 +84,3 @@ const NewsFeedItem = ({ id, title, content, imageUrl, profileUrl, profileName })
 };
 
 export default NewsFeedItem;
-

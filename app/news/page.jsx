@@ -1,3 +1,6 @@
+'use client'
+
+
 import React from "react";
 import PostHere from "../PostHere";
 import NewsFeedItem from "../NewsFeedItem";
