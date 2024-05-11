@@ -5,7 +5,6 @@ import { doc, deleteDoc} from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
 
 
-
 const NewsFeedItem = ({ news }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [expanded, setExpanded] = useState(false);
