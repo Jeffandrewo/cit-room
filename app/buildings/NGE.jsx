@@ -35,7 +35,8 @@ export default function NGE() {
           >
             <MenuItem value="roomNo">Room Number</MenuItem>
             <MenuItem value="teacherName">Teacher Name</MenuItem>
-            <MenuItem value="subjectNo">Subject Number</MenuItem> {/* New Option */}
+            <MenuItem value="subjectNo">Subject Number</MenuItem>
+
           </Select>
         </FormControl>
         <input

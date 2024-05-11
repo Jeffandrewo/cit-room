@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { db } from "@/firebase";
 import { deleteDoc, doc } from "firebase/firestore";
-import { IconButton, ListItem, ListItemText } from "@mui/material";
+import { IconButton, ListItem, ListItemText, Typography, FormControl, Select, MenuItem } from "@mui/material";
 import { InfoContext } from "../dashboard/InfoContext";
 import moment from "moment";
 
@@ -52,6 +52,7 @@ const Todo = ({
 
   return (
     <>
+     
       <ListItem onClick={() => setinfoAdd({
         id,
         timestamp,
@@ -73,15 +74,19 @@ const Todo = ({
             <IconButton onClick={handleOpenConfirmation}>
               <DeleteIcon />
             </IconButton>
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
           </>
         }
       >
         <ListItemText
-          primary={`ROOM ${roomNo}`}
-          secondary={moment(timestamp).format("MMMM DD, YYYY ")}
+          primary={<strong>{`ROOM ${roomNo}`}</strong>}
+          secondary={
+            <Typography component="div">
+              {`Teacher: ${teacherName}`}<br />
+              {`Subject No: ${subjectNo}`}<br />
+              {`Day: ${day}`}<br />
+              {moment(timestamp).format("MMMM DD, YYYY ")}
+            </Typography>
+          }
         />
       </ListItem>
 
