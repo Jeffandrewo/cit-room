@@ -1,21 +1,46 @@
 'use client'
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SignIn } from '@clerk/nextjs';
-import AdminKey from '/app/admin-key/page';
-
-// List of valid emails
-const validKeys = ['1']; // Add your valid keys here
+import { db } from "@/firebase";
+import { doc, getDoc } from 'firebase/firestore';
 
 const SignInPage = () => {
   const [key, setKey] = useState('');
   const [isValidKey, setIsValidKey] = useState(false); // State to track if key is valid
   const [showSignIn, setShowSignIn] = useState(false); // State to track whether to show SignIn component
+  
+  useEffect(() => {
+    const fetchAdminKey = async () => {
+      try {
+        const keyRef = doc(db, 'admin', 'adminKey');
+        const keySnapshot = await getDoc(keyRef);
+        if (keySnapshot.exists()) {
+          const adminKey = keySnapshot.data().key;
+          return adminKey;
+        } else {
+          console.log("Admin key document does not exist.");
+          return null;
+        }
+      } catch (error) {
+        console.error("Error fetching admin key:", error);
+        return null;
+      }
+    };
+
+    const loadAdminKey = async () => {
+      const validKeys = await fetchAdminKey();
+      if (validKeys) {
+        setIsValidKey(validKeys === key);
+      }
+    };
+
+    loadAdminKey();
+  }, [key]);
 
   // Function to handle key input change
   const handleKeyChange = (e) => {
     const enteredKey = e.target.value;
     setKey(enteredKey);
-    setIsValidKey(validKeys.includes(enteredKey));
   };
 
   useEffect(() => {
