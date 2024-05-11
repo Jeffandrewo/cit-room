@@ -18,8 +18,14 @@ const PostHere = ({update, setUpdate}) => {
   const handleImageChange = (event) => {
     const selectedImage = event.target.files[0];
     setImage(selectedImage);
-    setImagePreview(URL.createObjectURL(selectedImage));
+  
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(selectedImage);
   };
+  
 
   const handleTitleChange = (event) => {
     setPostTitle(event.target.value);
@@ -49,6 +55,10 @@ const PostHere = ({update, setUpdate}) => {
       
       setMessage(response.data.message);
       setUpdate(!update)
+      // Clear the message after 5 seconds
+      setTimeout(() => {
+      setMessage(null);
+    }, 1000);
     } catch (error) {
       setMessage(error.message);
     }
