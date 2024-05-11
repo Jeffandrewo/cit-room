@@ -18,6 +18,7 @@ const Header = () => {
       <div className="text-white flex items-center">
         <div className="relative inline-block text-left">
           <div className="group">
+
             <button className="text-lg font-bold hover:text-black mr-10 group-hover:text-black">
               Events
             </button>
@@ -64,6 +65,12 @@ const Header = () => {
           className="text-lg font-bold hover:text-black mr-10"
         >
           Room Details
+        </Link>
+        <Link
+          href="/admin-key"
+          className="text-lg font-bold hover:text-black mr-10"
+        >
+          Admin Key
         </Link>
         
         {!userId && (
