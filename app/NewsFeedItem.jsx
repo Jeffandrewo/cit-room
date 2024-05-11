@@ -2,10 +2,12 @@
 import React, { useState } from "react";
 import { db } from "@/firebase";
 import { doc, deleteDoc} from "firebase/firestore";
+import { useUser } from "@clerk/nextjs";
 
 const NewsFeedItem = ({ news }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const { user } = useUser();
 
   const handleToggleOptions = () => {
     setShowOptions(!showOptions);
@@ -71,39 +73,41 @@ const NewsFeedItem = ({ news }) => {
           />
         )}
       </div>
-      <div className="absolute top-2 right-2">
-        <button
-          onClick={handleToggleOptions}
-          className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-1 px-2 rounded-full"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+      {user && ( // Conditionally render based on isSignedIn
+        <div className="absolute top-2 right-2">
+          <button
+            onClick={handleToggleOptions}
+            className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-1 px-2 rounded-full"
           >
-            <circle cx="10" cy="3" r="2" />
-            <circle cx="10" cy="10" r="2" />
-            <circle cx="10" cy="17" r="2" />
-          </svg>
-        </button>
-        {showOptions && (
-          <div className="absolute top-10 right-2 bg-white shadow-md rounded-md">
-            <button
-              onClick={handleEdit}
-              className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm"
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              viewBox="0 0 20 20"
+              fill="currentColor"
             >
-              Edit
-            </button>
-            <button
-              onClick={() => handleDelete(news.id)}
-              className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm"
-            >
-              Remove post
-            </button>
-          </div>
-        )}
-      </div>
+              <circle cx="10" cy="3" r="2" />
+              <circle cx="10" cy="10" r="2" />
+              <circle cx="10" cy="17" r="2" />
+            </svg>
+          </button>
+          {showOptions && (
+            <div className="absolute top-10 right-2 bg-white shadow-md rounded-md">
+              <button
+                onClick={handleEdit}
+                className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(news.id)}
+                className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm"
+              >
+                Remove post
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

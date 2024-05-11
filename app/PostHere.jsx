@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase";
 import axios from "axios";
-import { useUser } from "@clerk/clerk-react";
+import { useUser, } from "@clerk/clerk-react";
 
 const PostHere = ({update, setUpdate}) => {
   const [image, setImage] = useState(null);
@@ -96,55 +96,60 @@ const PostHere = ({update, setUpdate}) => {
     }
   };
 
+  
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-      <input
-        type="text"
-        placeholder="Enter post title..."
-        value={postTitle}
-        onChange={handleTitleChange}
-        className="w-full h-12 border rounded-md p-2 mb-2"
-      />
-      <textarea
-        value={postDescription}
-        onChange={handleDescriptionChange}
-        placeholder="Got any news?"
-        className="w-full h-12 border rounded-md p-2 mb-2"
-      ></textarea>
-      {imagePreview && (
-        <Image
-          src={imagePreview}
-          width={25}
-          height={25}
-          alt="Selected Image"
-          className="w-full h-auto mb-2"
-        />
+      {user && ( // Conditionally render based on isSignedIn
+        <>
+          <input
+            type="text"
+            placeholder="Enter post title..."
+            value={postTitle}
+            onChange={handleTitleChange}
+            className="w-full h-12 border rounded-md p-2 mb-2"
+          />
+          <textarea
+            value={postDescription}
+            onChange={handleDescriptionChange}
+            placeholder="Got any news?"
+            className="w-full h-12 border rounded-md p-2 mb-2"
+          ></textarea>
+          {imagePreview && (
+            <Image
+              src={imagePreview}
+              width={25}
+              height={25}
+              alt="Selected Image"
+              className="w-full h-auto mb-2"
+            />
+          )}
+          <div className="flex justify-between items-center">
+            <label
+              htmlFor="image-upload"
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded cursor-pointer"
+            >
+              Upload Image
+            </label>
+            <input
+              id="image-upload"
+              type="file"
+              onChange={handleImageChange}
+              className="hidden"
+            />
+            <button
+              onClick={handleImageUpload}
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded"
+              disabled={loading}
+            >
+              {loading ? "Posting..." : "Post"}
+            </button>
+          </div>
+        </>
       )}
-      <div className="flex justify-between items-center">
-        <label
-          htmlFor="image-upload"
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded cursor-pointer"
-        >
-          Upload Image
-        </label>
-        <input
-          id="image-upload"
-          type="file"
-          onChange={handleImageChange}
-          className="hidden"
-        />
-        <button
-          onClick={handleImageUpload}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded"
-          disabled={loading}
-        >
-          {loading ? "Posting..." : "Post"}
-        </button>
-      </div>
+      {!user && <p>Please sign in to post and upload images.</p>}
       {error && <p className="text-red-500">{error}</p>}
       {message && <p className="text-green-500">{message}</p>}
     </div>
   );
 };
-
 export default PostHere;

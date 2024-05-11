@@ -26,6 +26,7 @@ export const GET = async (request) => {
       posts: posts,
     });
   } catch (error) {
+    console.error("Error fetching posts:", error);
     return NextResponse.json({
       success: false,
       message: error.message,
