@@ -59,7 +59,7 @@ const Header = () => {
         </Link>
         <Link
           href="/news"
-          className="text-lg font bold hover:text-black mr-10"
+          className="text-lg font-bold hover:text-black mr-10"
         >
           News
         </Link>
@@ -77,9 +77,17 @@ const Header = () => {
         >
           Room Details
         </Link>
+        {userId && (
+          <Link
+            href="/admin-key"
+            className="text-lg font-bold hover:text-black mr-10"
+          >
+            Admin Key
+          </Link>
+        )}
         {!userId && (
           <Link
-            href="/sign-up"
+            href="/admin-key"
             className="text-gray-300 hover:text-white ml-5"
           >
             <MdAccountCircle size={30} />
