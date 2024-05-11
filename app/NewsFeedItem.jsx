@@ -3,50 +3,42 @@ import React, { useState } from "react";
 import { db } from "@/firebase";
 import { doc, deleteDoc} from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 
 
 const NewsFeedItem = ({ news }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [deleted, setDeleted] = useState(false); // State to track if post is deleted
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); // State to track delete confirmation
   const { user } = useUser();
   
 
-  const handleToggleOptions = () => {
-    setShowOptions(!showOptions);
-  };
+  
 
   const handleDelete = async (id) => {
     try {
       const postRef = doc(db, "posts", id);
       await deleteDoc(postRef);
       console.log(`Successfully deleted post with id ${id}`);
-      toast.success("Post Deleted successfully!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      setDeleted(true); // Update state to indicate post is deleted
+      
+      setShowDeleteConfirmation(false); // Hide delete confirmation modal
+      setDeleted(true); // Update deleted state
     } catch (error) {
       console.error("Error deleting post:", error);
-      toast.error("Error Deleting Post!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
     }
   };
+  
 
-  const toggleExpandContent = () => {
-    setExpanded((prevExpanded) => !prevExpanded);
-  };
 
-  const shouldRenderPost = news && !deleted; // Check if post exists and is not deleted
+  
+
+  const shouldRenderPost = news && news.id !== null; 
 
   return (
     <>
-      {shouldRenderPost && (
-        <div className={`bg-white rounded-lg shadow-md p-6 flex relative ${deleted ? 'hidden' : ''}`}>
+      {shouldRenderPost && !deleted &&  (
+        <div className={`bg-white rounded-lg shadow-md p-6 flex relative`}>
           <img
             src={news?.user_photo}
             alt="Profile"
@@ -60,21 +52,9 @@ const NewsFeedItem = ({ news }) => {
               <p className="text-sm text-gray-500 mb-2">1h ago</p>
             </div>
             <h3 className="text-xl font-bold mb-2">{news?.postTitle}</h3>
-            {expanded ? (
-              <p className="text-gray-700 mb-2">{news?.postDescription}</p>
-            ) : (
-              <p className="text-gray-700 mb-2">
-                {news?.postDescription?.slice(0, 100)}
-              </p>
-            )}
-            {news?.postDescription?.length > 100 && (
-              <button
-                className="text-blue-500 font-semibold text-sm"
-                onClick={toggleExpandContent} // Changed here
-              >
-                {expanded ? "Show less" : "Show more"}
-              </button>
-            )}
+            <p className="text-gray-700 mb-2">
+              {news?.postDescription}
+            </p>
             {news?.photo_url && ( // Check if post has a photo
               <img
                 src={news?.photo_url}
@@ -86,7 +66,7 @@ const NewsFeedItem = ({ news }) => {
           {user && ( // Render options only if user is logged in
             <div className="absolute top-2 right-2">
               <button
-                onClick={handleToggleOptions}
+                onClick={() => setShowDeleteConfirmation(true)} // Show delete confirmation modal
                 className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-1 px-2 rounded-full"
               >
                 <svg
@@ -100,21 +80,32 @@ const NewsFeedItem = ({ news }) => {
                   <circle cx="10" cy="17" r="2" />
                 </svg>
               </button>
-              {showOptions && (
-                <div className="absolute top-10 right-2 bg-white shadow-md rounded-md">
-                  <button
-                    onClick={() => handleDelete(news.id)}
-                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm"
-                  >
-                    Remove post
-                  </button>
-                </div>
-              )}
             </div>
           )}
         </div>
       )}
-      <ToastContainer />
+      {showDeleteConfirmation && (
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-6 rounded-lg">
+            <p>Are you sure you want to delete this post?</p>
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={() => setShowDeleteConfirmation(false)} // Close delete confirmation modal
+                className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-1 px-2 rounded-full mr-2"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => handleDelete(news.id)} // Delete the post
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded-full"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+     
     </>
   );
 };
