@@ -27,6 +27,7 @@
     "@mui/material": "^5.15.11",
     "@mui/styled-engine-sc": "^6.0.0-alpha.17",
     "@mui/x-date-pickers": "^7.3.2",
+    "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "dayjs": "^1.11.11",
     "firebase": "^10.8.1",
