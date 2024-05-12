@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { db } from "@/firebase";
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const AdminKey = () => {
   const [adminKeyInput, setAdminKeyInput] = useState('');
@@ -61,10 +63,12 @@ const AdminKey = () => {
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: 'auto', textAlign: 'center', backgroundColor: '#f5f5f5', padding: '20px', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-      <h2 style={{ color: '#333', marginBottom: '20px', fontFamily: 'Arial, sans-serif' }}>Admin Key Management</h2>
+    <div style={{ maxWidth: '400px', margin: 'auto', textAlign: 'center', backgroundColor: '#ffffff', padding: '20px', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+      <h2 style={{ color: '#000000', marginBottom: '20px', fontFamily: 'Arial, sans-serif' }}>Admin Key Management</h2>
       {loading ? (
-        <p style={{ fontStyle: 'italic', color: '#666' }}>Loading...</p>
+        <p style={{ fontStyle: 'italic', color: '#666' }}>
+          <FontAwesomeIcon icon={faSpinner} spin /> Loading...
+        </p>
       ) : (
         <>
           {error && <p style={{ color: 'red', marginBottom: '10px', fontSize: '14px', fontFamily: 'Arial, sans-serif' }}>{error}</p>}
@@ -80,7 +84,7 @@ const AdminKey = () => {
             onChange={handleAdminKeyChange}
             style={{ marginBottom: '20px', padding: '10px', borderRadius: '4px', border: '1px solid #ccc', width: '100%', boxSizing: 'border-box', fontFamily: 'Arial, sans-serif' }}
           />
-          <button onClick={handleAdminKeySubmit} style={{ cursor: 'pointer', padding: '10px 20px', borderRadius: '4px', backgroundColor: '#007bff', color: '#fff', border: 'none', fontSize: '16px', fontFamily: 'Arial, sans-serif' }}>Update Admin Key</button>
+          <button onClick={handleAdminKeySubmit} style={{ cursor: 'pointer', padding: '10px 20px', borderRadius: '4px', backgroundColor: '#0095f6', color: '#fff', border: 'none', fontSize: '16px', fontFamily: 'Arial, sans-serif' }}>Update Admin Key</button>
         </>
       )}
     </div>
