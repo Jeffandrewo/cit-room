@@ -97,7 +97,7 @@ function Floor1({ roomsData, searchQuery, searchBy }) {
           style={{ order: parseInt(room.roomNo) }}
           onClick={() => openModal(room)}
         >
-          <h2 className="text-lg font-bold mb-1">ROOM {room.roomNo}</h2>
+          <h2 className="text-lg font-bold mb-1 text-black">ROOM {room.roomNo}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacherName}</p>
           <p className="text-gray-600 mb-1">Subject: {room.subjectNo}</p>
           <div className="items-center">

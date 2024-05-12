@@ -2,4 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    :root {
+      --header-background-light: #09cfcf; /* Light mode header background color */
+      --layout-background-light: #ffffff; /* Light mode layout background color */
+      --header-background-dark: #1f2937; /* Dark mode header background color */
+      --layout-background-dark: #1f2937; /* Dark mode layout background color */
+    }
+
+    .light {
+      --header-background: var(--header-background-light);
+      --layout-background: var(--layout-background-light);
+    }
+
+    .dark {
+      --header-background: var(--header-background-dark);
+      --layout-background: var(--layout-background-dark);
+    }
+    .dark .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+        color: #fff; 
+    }    
+  }
+
+  @layer base {
+    body {
+      background-color: var(--layout-background);
+    }
+
+    nav {
+      background-color: var(--header-background);
+    }
+
+    /* Add other styles for header and layout as needed */
+  }
+
 

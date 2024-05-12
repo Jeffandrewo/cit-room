@@ -67,4 +67,14 @@
     text-align: center; 
     font-family: 'Roboto', sans-serif; 
   }
+
+  .dark .mission-text,
+  .dark .mission-description {
+    color: white;
+  }
+
+  .dark .feature-card {
+  background-color: #c2cddd; 
+  }
+
   

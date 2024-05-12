@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { light } from "@clerk/themes";
-
+import { Providers } from "./components/providers";
 
 import Header from "./components/Header";
 
@@ -19,8 +19,9 @@ export default function RootLayout({ children }) {
     <ClerkProvider appearance={{
       baseTheme: light,
     }}>
-      <html lang="en"> 
+      <html lang="en" suppressHydrationWarning> 
         <body className={inter.className}>
+        <Providers>
         <Header />
           <main className="container">
             <div className="flex items-start justify-center min-h-screen">
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
               </div>
             </div>
           </main>
+        </Providers>
         </body>
       </html>
     </ClerkProvider>

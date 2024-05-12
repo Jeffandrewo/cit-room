@@ -5,6 +5,7 @@ import InformationEvent from "../components/InformationEvent"
 import InfoFormEvent from "../components/InfoFormEvent"
 import { useState } from "react"
 import { InfoContextEvent } from "./InfoContextEvent"
+import "./addingEvent.css"
 
 
 

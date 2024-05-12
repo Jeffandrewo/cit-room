@@ -5,6 +5,7 @@ import Information from "../components/Information"
 import InfoForm from "../components/InfoForm"
 import { useState } from "react"
 import { InfoContext } from "./InfoContext"
+import './dashboard.css'
 
 
 const DashboardPage = () => {

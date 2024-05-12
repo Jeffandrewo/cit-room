@@ -1,0 +1,22 @@
+.dark .css-1dx0hkm-MuiListItem-root {
+    background-color: rgba(228, 245, 245, 0.889) !important;
+}
+
+
+.dark .MuiTypography-root.MuiTypography-body1.css-ahj2mt-MuiTypography-root {
+    color: rgb(0, 0, 0); /* Dark mode text color */
+}
+
+  
+.dark .MuiTypography-root.MuiTypography-body1.MuiListItemText-primary.css-10hburv-MuiTypography-root strong {
+    color: rgb(0, 0, 0); /* Dark mode text color */
+}
+
+.dark .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
+    color: rgb(255, 255, 255);
+
+}
+
+.dark .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+    color: white;
+}
