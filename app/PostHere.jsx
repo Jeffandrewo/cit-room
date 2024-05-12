@@ -18,14 +18,8 @@ const PostHere = ({update, setUpdate}) => {
   const handleImageChange = (event) => {
     const selectedImage = event.target.files[0];
     setImage(selectedImage);
-  
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImagePreview(reader.result);
-    };
-    reader.readAsDataURL(selectedImage);
+    setImagePreview(URL.createObjectURL(selectedImage));
   };
-  
 
   const handleTitleChange = (event) => {
     setPostTitle(event.target.value);
@@ -35,14 +29,14 @@ const PostHere = ({update, setUpdate}) => {
     setPostDescription(event.target.value);
   };
 
-  const uploadPost = async (downloadURL, postTitle, postMessage) => {
+  const uploadPost = async (downloadURL, postTitle, postDescription) => {
     const data = {
       user_id: user.id,
       photo_url: downloadURL,
       firstName: user.firstName,
       user_photo: user.imageUrl,
       postTitle,
-      postMessage,
+      postDescription,
     };
 
     try {
@@ -55,10 +49,6 @@ const PostHere = ({update, setUpdate}) => {
       
       setMessage(response.data.message);
       setUpdate(!update)
-      // Clear the message after 5 seconds
-      setTimeout(() => {
-      setMessage(null);
-    }, 1000);
     } catch (error) {
       setMessage(error.message);
     }
@@ -96,7 +86,7 @@ const PostHere = ({update, setUpdate}) => {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
           setMessage("Post Upload Completely");
           setLoading(false);
-          await uploadPost(downloadURL, postTitle, postMessage);
+          await uploadPost(downloadURL, postTitle, postDescription);
         }
       );
     } catch (error) {
@@ -118,12 +108,13 @@ const PostHere = ({update, setUpdate}) => {
             onChange={handleTitleChange}
             className="w-full h-12 border rounded-md p-2 mb-2"
           />
-          <textarea
+          <input
+            type="text"
+            placeholder="Got any news?"
             value={postDescription}
             onChange={handleDescriptionChange}
-            placeholder="Got any news?"
             className="w-full h-12 border rounded-md p-2 mb-2"
-          ></textarea>
+          />
           {imagePreview && (
             <Image
               src={imagePreview}
@@ -156,8 +147,7 @@ const PostHere = ({update, setUpdate}) => {
           </div>
         </>
       )}
-     {!user && <p style={{ color: 'black' }}>Please sign in to post and upload images.</p>}
-
+      {!user && <p>Please sign in to post and upload images.</p>}
       {error && <p className="text-red-500">{error}</p>}
       {message && <p className="text-green-500">{message}</p>}
     </div>

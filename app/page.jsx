@@ -17,7 +17,7 @@ export default function Home() {
         <div className="flex items-center md:justify-end">
           <div className="w-96 h-72 relative">
             <div className="image-container" style={{ marginBottom: "-100px" }}> {/* Adjusted marginTop */}
-              <Image src="/oo.png" alt="building" height="500" width="500" />
+              <Image src="/build.png" alt="building" height="500" width="500" />
             </div>
           </div>
         </div>
