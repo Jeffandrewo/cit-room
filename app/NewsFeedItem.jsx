@@ -110,7 +110,7 @@ const NewsFeedItem = ({ news,  }) => {
                     <h2 className="text-lg font-semibold text-blue-500 pl-16">
                       {news?.firstName}
                     </h2>
-                    <p className="text-sm text-gray-500 mb-2 pl-16">1h ago</p>
+                    
                   </div>
                   <h3 className="text-xl font-bold mb-2 pl-16">{news?.postTitle}</h3>
                   {expanded ? (
@@ -161,7 +161,7 @@ const NewsFeedItem = ({ news,  }) => {
           {showDeleteConfirmation && (
             <div className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex justify-center items-center">
               <div className="bg-white p-6 rounded-lg">
-                <p>Are you sure you want to delete this post?</p>
+                <p style={{ color: 'black' }}>Are you sure you want to delete this post?</p>
                 <div className="flex justify-end mt-4">
                   <button
                     onClick={() => setShowDeleteConfirmation(false)}
