@@ -1,18 +1,20 @@
 'use client'
 import React from 'react';
 import { FaEnvelope, FaPhone, FaFacebook, FaTwitter, FaInstagram, FaMapMarkerAlt } from 'react-icons/fa';
+import { useTheme } from 'next-themes';
 
 export default function ContactPage() {
   // Function to open the contact form URL in a new tab or pop-up
   const openContactForm = () => {
     window.open('https://forms.gle/aoeMrHTDMpr3Xe4o8', '_blank');
   };
+  const { resolvedTheme } = useTheme();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="container mx-auto px-4 py-8 text-center">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-gray-800">Contact Admin</h1>
-        <p className="text-lg lg:text-xl mb-8 text-gray-700">Have a question or need assistance? Feel free to contact our admin team.</p>
+      <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Contact Admin</h1>
+      <p className={`text-lg lg:text-xl mb-8 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-700'}`}>Have a question or need assistance? Feel free to contact our admin team.</p>
         <button onClick={openContactForm} className="text-lg md:text-xl font-bold bg-yellow-500 text-white rounded-full py-3 px-8 md:py-4 md:px-10 hover:bg-red-600 focus:outline-none focus:bg-red-600 transition duration-300 ease-in-out mb-8">Contact Admin</button>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
@@ -27,10 +29,16 @@ export default function ContactPage() {
   );
 }
 
-const ContactLink = ({ icon, title, content, link }) => (
-  <a href={link} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center text-gray-600 hover:text-gray-800">
+const ContactLink = ({ icon, title, content, link }) => {
+  const { resolvedTheme } = useTheme();
+  
+  return (
+    <a href={link} target="_blank" rel="noopener noreferrer"  className={`flex flex-col items-center ${
+        resolvedTheme === "dark" ? "text-white" : "text-gray-600"
+      } hover:${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
     {icon}
     <strong className="mt-4">{title}</strong>
     <span>{content}</span>
   </a>
-);
+  );
+};
