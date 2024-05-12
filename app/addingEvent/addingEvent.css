@@ -1,0 +1,38 @@
+.dark .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
+    color: rgb(255, 255, 255);
+}
+.dark .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+    color: rgb(255, 255, 255); 
+}
+
+.dark .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {  
+    color: rgb(255, 255, 255);  
+}
+
+
+.dark .css-1rtg91x-MuiDateCalendar-root {
+    background: #011b589b;
+}
+
+.dark .css-dplwbx-MuiPickersCalendarHeader-label {
+    color: whitesmoke;
+}
+.dark .css-1vs7z2v-MuiYearCalendar-root {
+    color: whitesmoke
+}
+
+.dark .css-23p0if-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected) {
+    border: 1px solid rgba(249, 197, 8, 0.977);
+}
+
+.dark .css-rhmlg1-MuiTypography-root-MuiDayCalendar-weekDayLabel {
+    color: whitesmoke;
+}
+
+.dark .css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root {
+    color: whitesmoke;
+}
+
+.dark .css-23p0if-MuiButtonBase-root-MuiPickersDay-root {
+    color: whitesmoke;
+}

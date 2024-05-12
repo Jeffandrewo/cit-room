@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
-import { FormControl, Select, MenuItem } from "@mui/material";
+import { FormControl, Select, MenuItem, Card, CardContent, Typography } from "@mui/material";
 import Todo from "./Todo";
 import { db } from "../../firebase";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
@@ -31,6 +31,7 @@ const Information = () => {
     return unsubscribe;
   }, []);
 
+  // Filtered todos based on search query and search by
   const filteredTodos = info.filter((todo) => {
     if (searchQuery === "") {
       return true;
@@ -38,9 +39,18 @@ const Information = () => {
     return todo[searchBy].toLowerCase().includes(searchQuery.toLowerCase());
   });
 
+  // Organize todos into an object where keys are days of the week (Monday to Saturday)
+  const todosByDay = filteredTodos.reduce((acc, todo) => {
+    if (!acc[todo.day]) {
+      acc[todo.day] = [];
+    }
+    acc[todo.day].push(todo);
+    return acc;
+  }, {});
+
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" , margin:"40px"}}>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: "40px" }}>
         <p>Search:</p>
         <FormControl>
           <Select
@@ -67,7 +77,7 @@ const Information = () => {
               ? "Room Number"
               : searchBy === "teacherName"
               ? "Teacher Name"
-              : searchBy === "day" // Adjust placeholder based on selected value
+              : searchBy === "day"
               ? "Day"
               : "Subject No"
           }`}
@@ -82,24 +92,45 @@ const Information = () => {
         />
       </div>
 
-      {filteredTodos.map((todo) => (
-        <Todo
-          key={todo.id}
-          id={todo.id}
-          buildingName={todo.buildingName}
-          classSection={todo.classSection}
-          endTime={todo.endTime}
-          floorNumber={todo.floorNumber}
-          roomNo={todo.roomNo}
-          startTime={todo.startTime}
-          subjectNo={todo.subjectNo}
-          teacherName={todo.teacherName}
-          day={todo.day}
-          status={todo.status}
-        />
-      ))}
+     
+      <div style={{ overflowX: "auto", whiteSpace: "nowrap"}}>
+        <div style={{ display: "flex" }}>
+          {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].map((day) => (
+            <Card key={day} style={{ minWidth: "300px", maxWidth: "300px", margin: "5px",  marginBottom: "50px"}}>
+              <CardContent>
+                <Typography variant="h6" component="h2" style={{ marginBottom: "10px", textAlign: "center", fontWeight: "bold" }}>
+                  {day}
+                </Typography>
+                {todosByDay[day] ? (
+                  todosByDay[day].map((todo) => (
+                    <Todo
+                      key={todo.id}
+                      id={todo.id}
+                      buildingName={todo.buildingName}
+                      classSection={todo.classSection}
+                      endTime={todo.endTime}
+                      floorNumber={todo.floorNumber}
+                      roomNo={todo.roomNo}
+                      startTime={todo.startTime}
+                      subjectNo={todo.subjectNo}
+                      teacherName={todo.teacherName}
+                      day={todo.day}
+                      status={todo.status}
+                    />
+                  ))
+                ) : (
+                  <Typography variant="body2" color="textSecondary" style={{ marginBottom: "10px", textAlign: "center", fontWeight: "bold" }}>
+                    No information available
+                  </Typography>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
+
 
 export default Information;

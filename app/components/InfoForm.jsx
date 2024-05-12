@@ -7,6 +7,7 @@ import { InfoContext } from "../dashboard/InfoContext";
 
 
 
+
 const InfoForm = () => {
 
   const inputAreaRef = useRef();
@@ -55,7 +56,11 @@ const scheduleQuery = query(collection(db, 'info'),
 const overlappingSchedulesSnapshot = await getDocs(scheduleQuery);
 const overlappingSchedules = overlappingSchedulesSnapshot.docs;
 
+
 const conflictingSchedule = overlappingSchedules.find(schedule => {
+  if (schedule.id === infoAdd.id) {
+    return false;
+  }
   const existingStartTime = schedule.get('startTime');
   const existingEndTime = schedule.get('endTime');
 
@@ -143,14 +148,14 @@ if (conflictingSchedule) {
       </FormControl>
       <TextField
         fullWidth
-        label="classSection"
+        label="Class Section"
         margin="normal"
         value={infoAdd.classSection}
         onChange={(e) => setinfoAdd({ ...infoAdd, classSection: e.target.value })}
       />
       <TextField
         fullWidth
-        label="roomNo"
+        label="Room No"
         margin="normal"
         value={infoAdd.roomNo}
         onChange={(e) => setinfoAdd({ ...infoAdd, roomNo: e.target.value })}
@@ -191,7 +196,7 @@ if (conflictingSchedule) {
       </FormControl>
       <TextField
         fullWidth
-        label="startTime"
+        label="start Time"
         margin="normal"
         type="time"
         InputLabelProps={{
@@ -202,7 +207,7 @@ if (conflictingSchedule) {
       />
       <TextField
         fullWidth
-        label="endTime"
+        label="end Time"
         margin="normal"
         type="time"
         InputLabelProps={{
@@ -213,14 +218,14 @@ if (conflictingSchedule) {
       />
       <TextField
         fullWidth
-        label="subjectNo"
+        label="Subject No"
         margin="normal"
         value={infoAdd.subjectNo}
         onChange={(e) => setinfoAdd({ ...infoAdd, subjectNo: e.target.value })}
       />
       <TextField
         fullWidth
-        label="teacherName"
+        label="Teacher Name"
         margin="normal"
         value={infoAdd.teacherName}
         onChange={(e) => setinfoAdd({ ...infoAdd, teacherName: e.target.value })}

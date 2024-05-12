@@ -97,9 +97,10 @@ function Floor6({ roomsData, searchQuery, searchBy  }) {
           style={{ order: parseInt(room.roomNo) }}
           onClick={() => openModal(room)}
         >
-          <h2 className="text-lg font-bold mb-1">ROOM {room.roomNo}</h2>
+          <h2 className="text-lg font-bold mb-1 text-black">ROOM {room.roomNo}</h2>
           <p className="text-gray-600 mb-1">TEACHER: {room.teacherName}</p>
           <p className="text-gray-600 mb-1">Subject: {room.subjectNo}</p>
+          <p className="text-gray-600 mb-1">Day: {room.day}</p>
           <div className="items-center">
             <div className="w-50 h-2" style={{ backgroundColor: room.status === 'Available' ? 'green' : 'red' }}></div>
             <span className={`${room.status === 'Available' ? styles.availableText : styles.notAvailableText}`}>{room.status}</span>
@@ -115,9 +116,12 @@ function Floor6({ roomsData, searchQuery, searchBy  }) {
           ) : (
             <div>
               <h2 className={styles.modal}>
+              <span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>
+                Room # {selectedRoom?.roomNo}
+              </span><br />
                 Building Name: {selectedRoom?.buildingName} <br />
                 Floor: {selectedRoom?.floorNumber} <br />
-                Room #: {selectedRoom?.roomNo} <br />
+                
                 Teacher: {selectedRoom?.teacherName} <br />
                 Section: {selectedRoom?.classSection} <br />
                 Subject: {selectedRoom?.subjectNo} <br />
@@ -126,7 +130,7 @@ function Floor6({ roomsData, searchQuery, searchBy  }) {
                 Time: {selectedRoom?.startTime} - {selectedRoom?.endTime} <br />
               </h2>
               {isSignedIn && (
-                <button onClick={() => toggleDashboard(selectedRoom)}>Update Info</button>
+                <button onClick={() => toggleDashboard(selectedRoom)} style={{ color: 'black' }}>Update Info</button>
               )}
             </div>
           )}
@@ -203,6 +207,8 @@ const F6 = ({ searchQuery, searchBy }) => {
             if (!roomExists) {
               placeholders.push({
                 roomNo: i.toString(),
+                buildingName: "N/A",
+                floorNumber: "N/A",
                 teacherName: "N/A",
                 classSection: "N/A",
                 subjectNo: "N/A",

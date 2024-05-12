@@ -156,7 +156,8 @@ const PostHere = ({update, setUpdate}) => {
           </div>
         </>
       )}
-      {!user && <p>Please sign in to post and upload images.</p>}
+     {!user && <p style={{ color: 'black' }}>Please sign in to post and upload images.</p>}
+
       {error && <p className="text-red-500">{error}</p>}
       {message && <p className="text-green-500">{message}</p>}
     </div>

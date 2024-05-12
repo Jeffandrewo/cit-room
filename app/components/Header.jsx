@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { MdAccountCircle } from "react-icons/md";
 import { UserButton, auth } from "@clerk/nextjs";
+import ThemeSwitch from "./ThemeSwitch";
 
 const Header = () => {
  
   const { userId } = auth();
 
   return (
-    <nav className="[background-color:_#09cfcf] relative py-4 px-6  flex items-center justify-between mb-5 ">
+    <nav className="relative py-4 px-6  flex items-center justify-between mb-5 ">
       <div className="flex items-center">
         <Link href="/">
           <div className="text-lg uppercase font-bold text-white">
@@ -15,6 +16,7 @@ const Header = () => {
           </div>
         </Link>
       </div>
+      <ThemeSwitch />
       <div className="text-white flex items-center">
         <div className="relative inline-block text-left">
           <div className="group">

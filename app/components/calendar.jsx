@@ -9,12 +9,11 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { EventSourceInput } from '@fullcalendar/core/index.js';
+import { useTheme } from 'next-themes';
 
 export default function Home() {
   const { user } = useUser(); // Get Clerk user
-  const [events, setEvents] = useState([
-    
-  ]);
+  const [events, setEvents] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -25,6 +24,10 @@ export default function Home() {
     allDay: false,
     id: 0,
   });
+
+  const { resolvedTheme } = useTheme();
+  const textColor = resolvedTheme === 'dark' ? '#fff' : '#000';
+  const backgroundColor = resolvedTheme === 'dark' ? '#01c6f252' : '#F5F3FF';
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'calend'), (snapshot) => {
@@ -51,8 +54,6 @@ export default function Home() {
       console.error('Error adding document: ', error);
     }
   };
-
-  
 
   function handleDateClick(arg) {
     if (user){
@@ -141,8 +142,7 @@ export default function Home() {
   return (
     <>
     
-        <h1 className="font-bold text-2xl text-gray-700">Calendar</h1>
-      
+    <h1 className="font-bold text-2xl" style={{ color: textColor }}>Calendar</h1>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="grid grid-cols-10">
           <div className="col-span-8">
@@ -164,7 +164,7 @@ export default function Home() {
               eventClick={(data) => handleDeleteModal(data)}
             />
           </div>
-          <div id="draggable-el" className="ml-8 w-full border-2 p-2 rounded-md mt-16 lg:h-1/2 bg-violet-50">
+          <div id="draggable-el" className="ml-8 w-full border-2 p-2 rounded-md mt-16 lg:h-1/2"style={{ backgroundColor }}>
             <h1 className="font-bold text-lg text-center"> Event List</h1>
             {allEvents.map((event) => (
               <div

@@ -69,8 +69,8 @@ const AdminKey = () => {
         <>
           {error && <p style={{ color: 'red', marginBottom: '10px', fontSize: '14px', fontFamily: 'Arial, sans-serif' }}>{error}</p>}
           <div style={{ marginBottom: '20px' }}>
-            <label htmlFor="adminKeyInput" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', fontFamily: 'Arial, sans-serif' }}>Current Admin Key:</label>
-            <strong style={{ fontSize: '16px', fontFamily: 'Arial, sans-serif' }}>{adminKeyDisplay}</strong>
+            <label htmlFor="adminKeyInput" style={{ display: 'block', marginBottom: '5px', fontSize: '14px', fontFamily: 'Arial, sans-serif' , color: 'black'}} >Current Admin Key:</label>
+            <strong style={{ fontSize: '16px', fontFamily: 'Arial, sans-serif', color: 'black' }}>{adminKeyDisplay}</strong>
           </div>
           <input
             id="adminKeyInput"

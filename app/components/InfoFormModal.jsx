@@ -126,9 +126,10 @@ const InfoForm = ({ selectedRoom }) => {
           value={infoAdd.buildingName}
           onChange={(e) => setinfoAdd({ ...infoAdd, buildingName: e.target.value })}
           label="Building Name"
+          style={{ color: 'black' }}
         >
-          <MenuItem value="NGE">NGE</MenuItem>
-          <MenuItem value="GLE">GLE</MenuItem>
+          <MenuItem value="NGE" style={{ color: 'black' }}>NGE</MenuItem>
+          <MenuItem value="GLE" style={{ color: 'black' }}>GLE</MenuItem>
         </Select>
       </FormControl>
       <TextField
@@ -137,6 +138,7 @@ const InfoForm = ({ selectedRoom }) => {
         margin="normal"
         value={infoAdd.classSection}
         onChange={(e) => setinfoAdd({ ...infoAdd, classSection: e.target.value })}
+        style={{ color: 'black' }}
       />
       <TextField
         fullWidth
@@ -144,6 +146,7 @@ const InfoForm = ({ selectedRoom }) => {
         margin="normal"
         value={infoAdd.roomNo}
         onChange={(e) => setinfoAdd({ ...infoAdd, roomNo: e.target.value })}
+        style={{ color: 'black' }}
       />
       <FormControl fullWidth margin="normal">
         <InputLabel id="floorNumber-label">Floor Number</InputLabel>
@@ -153,6 +156,7 @@ const InfoForm = ({ selectedRoom }) => {
           value={infoAdd.floorNumber}
           onChange={(e) => setinfoAdd({ ...infoAdd, floorNumber: e.target.value })}
           label="Floor Number"
+          style={{ color: 'black' }}
         >
           {[...Array(8).keys()].map((num) => (
             <MenuItem key={num + 1} value={(num + 1).toString()}>
@@ -169,14 +173,15 @@ const InfoForm = ({ selectedRoom }) => {
           value={infoAdd.day}
           onChange={(e) => setinfoAdd({ ...infoAdd, day: e.target.value })}
           label="Day"
+          style={{ color: 'black' }}
         >
-          <MenuItem value="Monday">Monday</MenuItem>
-          <MenuItem value="Tuesday">Tuesday</MenuItem>
-          <MenuItem value="Wednesday">Wednesday</MenuItem>
-          <MenuItem value="Thursday">Thursday</MenuItem>
-          <MenuItem value="Friday">Friday</MenuItem>
-          <MenuItem value="Saturday">Saturday</MenuItem>
-          <MenuItem value="Sunday">Sunday</MenuItem>
+          <MenuItem value="Monday" style={{ color: 'black' }}>Monday</MenuItem>
+          <MenuItem value="Tuesday" style={{ color: 'black' }}>Tuesday</MenuItem>
+          <MenuItem value="Wednesday" style={{ color: 'black' }}>Wednesday</MenuItem>
+          <MenuItem value="Thursday" style={{ color: 'black' }}>Thursday</MenuItem>
+          <MenuItem value="Friday" style={{ color: 'black' }}>Friday</MenuItem>
+          <MenuItem value="Saturday" style={{ color: 'black' }}>Saturday</MenuItem>
+          <MenuItem value="Sunday" style={{ color: 'black' }}>Sunday</MenuItem>
         </Select>
       </FormControl>
       <TextField
@@ -189,6 +194,7 @@ const InfoForm = ({ selectedRoom }) => {
         }}
         value={infoAdd.startTime}
         onChange={(e) => setinfoAdd({ ...infoAdd, startTime: e.target.value })}
+        style={{ color: 'black' }}
       />
       <TextField
         fullWidth
@@ -200,6 +206,7 @@ const InfoForm = ({ selectedRoom }) => {
         }}
         value={infoAdd.endTime}
         onChange={(e) => setinfoAdd({ ...infoAdd, endTime: e.target.value })}
+        style={{ color: 'black' }}
       />
       <TextField
         fullWidth
@@ -207,6 +214,7 @@ const InfoForm = ({ selectedRoom }) => {
         margin="normal"
         value={infoAdd.subjectNo}
         onChange={(e) => setinfoAdd({ ...infoAdd, subjectNo: e.target.value })}
+        style={{ color: 'black' }}
       />
       <TextField
         fullWidth
@@ -214,6 +222,7 @@ const InfoForm = ({ selectedRoom }) => {
         margin="normal"
         value={infoAdd.teacherName}
         onChange={(e) => setinfoAdd({ ...infoAdd, teacherName: e.target.value })}
+        style={{ color: 'black' }}
       />
       <FormControl fullWidth margin="normal">
         <InputLabel id="status-label">Status</InputLabel>
@@ -223,15 +232,22 @@ const InfoForm = ({ selectedRoom }) => {
           value={infoAdd.status}
           onChange={(e) => setinfoAdd({ ...infoAdd, status: e.target.value })}
           label="Status"
+          style={{ color: 'black' }}
         >
-          <MenuItem value="In-use">In-use</MenuItem>
-          <MenuItem value="Available">Available</MenuItem>
+          <MenuItem value="In-use" style={{ color: 'black' }}>In-use</MenuItem>
+          <MenuItem value="Available" style={{ color: 'black' }}>Available</MenuItem>
         </Select>
       </FormControl>
 
-      <Button onClick={onSubmit} variant="contained" sx={{ mt: 3 }}>
-        Update Information
-      </Button>
+      <Button
+  onClick={onSubmit}
+  variant="contained"
+  sx={{ mt: 3 }}
+  style={{ color: 'black', backgroundColor: 'blue' }}
+>
+  Update Information
+</Button>
+
     </div>
   );
 };
