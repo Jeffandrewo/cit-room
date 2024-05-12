@@ -24,10 +24,14 @@ function App() {
         method="POST"
         encType="multipart/form-data"
       >
-        <PostHere update={update} setUpdate={setUpdate} news={news} setNews={setNews} />
+        {/* <PostHere update={update} setUpdate={setUpdate} news={news} setNews={setNews} /> */}
+        {/* <PostHere update={update} setUpdate={(newUpdate) => { setUpdate(newUpdate); fetchNewsData(); }} /> */}
+        <PostHere update={update} setUpdate={(newUpdate) => setUpdate(newUpdate)} />
       </form>
       {news.map((item) => (
-        <NewsFeedItem key={item.id} news={item} />
+        // <NewsFeedItem key={item.id} news={item} />
+        // <NewsFeedItem key={item.id} news={item} setNews={(editedNews) => setNews((prevNews) => prevNews.map((newsItem) => (newsItem.id === editedNews.id ? editedNews : newsItem)))} />
+        <NewsFeedItem key={item.id} news={item} setNews={setNews} />
       ))}
     </div>
   );

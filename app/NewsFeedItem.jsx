@@ -3,7 +3,7 @@ import { db } from '@/firebase';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useUser } from '@clerk/nextjs';
 
-const NewsFeedItem = ({ news, key }) => {
+const NewsFeedItem = ({ news,  }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -30,11 +30,12 @@ const NewsFeedItem = ({ news, key }) => {
       const postRef = doc(db, 'posts', news.id);
       await updateDoc(postRef, {
         postTitle: editedTitle,
-        postDescription: editedDescription || '' 
+        postDescription: editedDescription,
+        postImage: editedImage || ''
       });
       console.log(`Successfully edited post with id ${news.id}`);
       setEditing(false); // Exit editing mode
-      setNews(prevNews => prevNews.map(item => (item.id === news.id ? { ...item, postTitle: editedTitle, postDescription: editedDescription } : item)));
+      // setNews(prevNews => prevNews.map(item => (item.id === news.id ? { ...item, postTitle: editedTitle, postDescription: editedDescription, postImage: editedImage } : item)));
     } catch (error) {
       console.error(`Error editing post: ${error.message}`);
     } finally {
@@ -74,6 +75,12 @@ const NewsFeedItem = ({ news, key }) => {
                     onChange={(e) => setEditedDescription(e.target.value)}
                     className="text-gray-700 mb-2 w-full outline-none"
                     rows={4}
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setEditedImage(e.target.files[0])}
+                    className="mb-2"
                   />
                 </div>
                 {news?.photo_url && (
@@ -156,7 +163,7 @@ const NewsFeedItem = ({ news, key }) => {
                   </button>
                 </div>
               )}
-            </div>
+             </div>
           )}
 
           {showDeleteConfirmation && (
