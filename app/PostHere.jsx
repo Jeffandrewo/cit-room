@@ -29,14 +29,14 @@ const PostHere = ({update, setUpdate}) => {
     setPostDescription(event.target.value);
   };
 
-  const uploadPost = async (downloadURL, postTitle, postMessage) => {
+  const uploadPost = async (downloadURL, postTitle, postDescription) => {
     const data = {
       user_id: user.id,
       photo_url: downloadURL,
       firstName: user.firstName,
       user_photo: user.imageUrl,
       postTitle,
-      postMessage,
+      postDescription,
     };
 
     try {
@@ -86,7 +86,7 @@ const PostHere = ({update, setUpdate}) => {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
           setMessage("Post Upload Completely");
           setLoading(false);
-          await uploadPost(downloadURL, postTitle, postMessage);
+          await uploadPost(downloadURL, postTitle, postDescription);
         }
       );
     } catch (error) {
@@ -108,12 +108,13 @@ const PostHere = ({update, setUpdate}) => {
             onChange={handleTitleChange}
             className="w-full h-12 border rounded-md p-2 mb-2"
           />
-          <textarea
+          <input
+            type="text"
+            placeholder="Got any news?"
             value={postDescription}
             onChange={handleDescriptionChange}
-            placeholder="Got any news?"
             className="w-full h-12 border rounded-md p-2 mb-2"
-          ></textarea>
+          />
           {imagePreview && (
             <Image
               src={imagePreview}

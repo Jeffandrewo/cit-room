@@ -7,7 +7,9 @@ const Header = () => {
   const { userId } = auth();
 
   return (
-    <nav className="[background-color:_#09cfcf] relative py-4 px-6  flex items-center justify-between mb-5 ">
+    <nav className="[background-color:_#00b4d8] relative py-4 px-6  flex items-center justify-between mb-5 ">
+    {/* <nav class="relative py-4 px-6  flex items-center justify-between mb-5 " style="color:#09cfcf;"> */}
+     {/* <nav className="relative py-4 px-6 flex items-center justify-between mb-5" style={{ color: '#09cfcf' }}> */}
       <div className="flex items-center">
         <Link href="/">
           <div className="text-lg uppercase font-bold text-white">
