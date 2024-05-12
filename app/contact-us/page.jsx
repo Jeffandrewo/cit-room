@@ -15,38 +15,22 @@ export default function ContactPage() {
         <p className="text-lg lg:text-xl mb-8 text-gray-700">Have a question or need assistance? Feel free to contact our admin team.</p>
         <button onClick={openContactForm} className="text-lg md:text-xl font-bold bg-yellow-500 text-white rounded-full py-3 px-8 md:py-4 md:px-10 hover:bg-red-600 focus:outline-none focus:bg-red-600 transition duration-300 ease-in-out mb-8">Contact Admin</button>
       </div>
-      <div className="flex justify-center items-center space-x-16 mt-8">
-        <a href="mailto:andrewdandan80@gmail.com" className="flex flex-col items-center text-gray-600 hover:text-gray-800">
-          <FaEnvelope className="inline-block text-6xl" />
-          <strong className="mt-4">EMAIL</strong>
-          <span>andrewdandan80@gmail.com</span>
-        </a>
-        <a href="#" className="flex flex-col items-center text-gray-600 hover:text-gray-800">
-          <FaMapMarkerAlt className="inline-block text-6xl" />
-          <strong className="mt-4">ADDRESS</strong>
-          <span>N. Bacalso Avenue, Cebu City, 6000 Cebu</span>
-        </a>
-        <a href="tel:0987654321" className="flex flex-col items-center text-gray-600 hover:text-gray-800">
-          <FaPhone className="inline-block text-6xl" />
-          <strong className="mt-4">CALL US</strong>
-          <span>0987654321</span>
-        </a>
-        <a href="https://www.facebook.com/CITROOMCHECKER/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center text-gray-600 hover:text-gray-800">
-          <FaFacebook className="inline-block text-6xl" />
-          <strong className="mt-4">FACEBOOK</strong>
-          <span>CIT ROOM CHECKER</span>
-        </a>
-        <a href="https://twitter.com/citroomchecker" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center text-gray-600 hover:text-gray-800">
-          <FaTwitter className="inline-block text-6xl" />
-          <strong className="mt-4">TWITTER</strong>
-          <span>@citroomchecker</span>
-        </a>
-        <a href="https://www.instagram.com/citroomchecker/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center text-gray-600 hover:text-gray-800">
-          <FaInstagram className="inline-block text-6xl" />
-          <strong className="mt-4">INSTAGRAM</strong>
-          <span>@citroomchecker</span>
-        </a>
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+        <ContactLink icon={<FaEnvelope className="text-6xl" />} title="EMAIL" content="andrewdandan80@gmail.com" link="mailto:andrewdandan80@gmail.com" />
+        <ContactLink icon={<FaMapMarkerAlt className="text-6xl" />} title="ADDRESS" content="N. Bacalso Avenue, Cebu City, 6000 Cebu" />
+        <ContactLink icon={<FaPhone className="text-6xl" />} title="CALL US" content="0987654321" link="tel:0987654321" />
+        <ContactLink icon={<FaFacebook className="text-6xl" />} title="FACEBOOK" content="CIT ROOM CHECKER" link="https://www.facebook.com/CITROOMCHECKER/" />
+        <ContactLink icon={<FaTwitter className="text-6xl" />} title="TWITTER" content="@citroomchecker" link="https://twitter.com/citroomchecker" />
+        <ContactLink icon={<FaInstagram className="text-6xl" />} title="INSTAGRAM" content="@citroomchecker" link="https://www.instagram.com/citroomchecker/" />
       </div>
     </div>
   );
 }
+
+const ContactLink = ({ icon, title, content, link }) => (
+  <a href={link} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center text-gray-600 hover:text-gray-800">
+    {icon}
+    <strong className="mt-4">{title}</strong>
+    <span>{content}</span>
+  </a>
+);
