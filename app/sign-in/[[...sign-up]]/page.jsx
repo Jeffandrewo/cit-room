@@ -76,7 +76,7 @@ const SignInPage = () => {
           endAdornment={
             <InputAdornment position="end">
               <IconButton onClick={toggleShowText} edge="end">
-                {showText ? <Visibility /> : <VisibilityOff />}
+                {showText ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
           }
