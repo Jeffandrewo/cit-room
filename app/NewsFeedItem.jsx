@@ -34,12 +34,10 @@ const NewsFeedItem = ({ news,  }) => {
       });
       console.log(`Successfully edited post with id ${news.id}`);
       setEditing(false); // Exit editing mode
-      // setNews(prevNews => prevNews.map(item => (item.id === news.id ? { ...item, postTitle: editedTitle, postDescription: editedDescription, postImage: editedImage } : item)));
+      
     } catch (error) {
       console.error(`Error editing post: ${error.message}`);
-    } finally {
-      setIsSaving(false); // Reset saving state after save operation completes
-    }
+    } 
   };
 
   const handleDelete = async (id) => {
@@ -180,6 +178,7 @@ const NewsFeedItem = ({ news,  }) => {
                   >
                     Delete
                   </button>
+                  
                 </div>
               </div>
             </div>
