@@ -20,7 +20,6 @@ const NewsFeedItem = ({ news,  }) => {
       // Set the initial state of editedTitle and editedDescription when news changes
       setEditedTitle(news?.postTitle || '');
       setEditedDescription(news?.postDescription || '');
-      setEditedImage(news?.postImage || '' );
     }
   }, [news]);
 
@@ -31,7 +30,7 @@ const NewsFeedItem = ({ news,  }) => {
       await updateDoc(postRef, {
         postTitle: editedTitle,
         postDescription: editedDescription,
-        postImage: editedImage || ''
+        
       });
       console.log(`Successfully edited post with id ${news.id}`);
       setEditing(false); // Exit editing mode
@@ -76,12 +75,7 @@ const NewsFeedItem = ({ news,  }) => {
                     className="text-gray-700 mb-2 w-full outline-none"
                     rows={4}
                   />
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => setEditedImage(e.target.files[0])}
-                    className="mb-2"
-                  />
+                  
                 </div>
                 {news?.photo_url && (
                   <div className="text-center">
