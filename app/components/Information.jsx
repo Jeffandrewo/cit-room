@@ -95,7 +95,7 @@ const Information = () => {
      
       <div style={{ overflowX: "auto", whiteSpace: "nowrap"}}>
         <div style={{ display: "flex" }}>
-          {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].map((day) => (
+          {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day) => (
             <Card key={day} style={{ minWidth: "300px", maxWidth: "300px", margin: "5px",  marginBottom: "50px"}}>
               <CardContent>
                 <Typography variant="h6" component="h2" style={{ marginBottom: "10px", textAlign: "center", fontWeight: "bold" }}>

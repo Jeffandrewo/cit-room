@@ -4,7 +4,7 @@ import Link from 'next/link';
 //<NGE/>
 export default function Home() {
   return (
-    <div className="bg-white">
+    
       <div className="relative py-4 px-20 flex items-center justify-between mb-10">
         <div className="flex flex-col justify-center text-white font-bold">
           <p className="text-4xl w-full text-center mb-3 max-w-md mx-auto" style={{ color: '#010101' }}>
@@ -22,6 +22,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 }
