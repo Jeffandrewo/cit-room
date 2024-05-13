@@ -106,7 +106,9 @@ const PostHere = ({update, setUpdate}) => {
             placeholder="Enter post title..."
             value={postTitle}
             onChange={handleTitleChange}
-            className="w-full h-12 border rounded-md p-2 mb-2"
+            className="w-full h-12 border rounded-md p-2 mb-2 "
+             
+
           />
           <input
             type="text"
@@ -147,7 +149,7 @@ const PostHere = ({update, setUpdate}) => {
           </div>
         </>
       )}
-      {!user && <p>Please sign in to post and upload images.</p>}
+      {!user && <p style={{ color: 'black' }}>Please sign in to post and upload images.</p>}
       {error && <p className="text-red-500">{error}</p>}
       {message && <p className="text-green-500">{message}</p>}
     </div>

@@ -112,7 +112,7 @@ const NewsFeedItem = ({ news,  }) => {
                     </h2>
                     
                   </div>
-                  <h3 className="text-xl font-bold mb-2 pl-16">{news?.postTitle}</h3>
+                  <h3 className="text-xl font-bold mb-2 pl-16 text-black">{news?.postTitle}</h3>
                   {expanded ? (
                     <p className="text-gray-700 mb-2 pl-16">{news?.postDescription}</p>
                   ) : (
