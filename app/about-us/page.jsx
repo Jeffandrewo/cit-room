@@ -18,7 +18,7 @@ export default function AboutUsPage() {
     {
       title: "News Updates",
       image: "https://th.bing.com/th/id/OIP.DT0aUg84feftKA3koGwsxwHaE8?rs=1&pid=ImgDetMain",
-      description: "Stay informed about school-related news and updates through our dedicated news page."
+      description: "Stay informed about school-related news, events, and updates through our dedicated news page in our CIT ROOM CHECKER website."
     }
     
   ];
